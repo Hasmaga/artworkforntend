@@ -21,7 +21,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="flex items-center w-full justify-between h-20 shadow-lg pl-20 pr-20">
+    <nav className="flex items-center w-full justify-between h-20 shadow-lg pl-20 pr-20 bg-white">
       <div>
         <Link href="/">
           <Image src={Logo} alt="logo" width={80} height={75} />

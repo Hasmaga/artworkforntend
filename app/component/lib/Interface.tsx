@@ -10,3 +10,40 @@ export interface SignUp {
     lastName: string;
     phone?: string;
 }
+
+export interface PostetArtwork{
+    postId: string;
+    contentPost: string;
+    creatorName: string;
+    createDateTime: string;
+    likeCount: number;
+    listArtwork: Artwork[];
+}
+
+export interface Artwork{
+    artworkId: string;
+    artworkName: string;
+    creatorName: string;
+    typeOfArtwork: TypeOfArtwork[];
+    createDateTime: string;
+    likeCount: number;
+    image: string;
+}
+
+export interface TypeOfArtwork{
+    id: string;
+    type: string;
+}
+
+export interface LoginAsyncReponse{
+    status: string;
+    data: string;
+}
+
+export interface User {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    balance: string;
+}
