@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <LeftNavbar />
                 </div>
                 <div className="bg-gray-100 w-10/12 flex items-center justify-center">
-                    {children}
+                    {children}                    
                 </div>
             </div>
         </div>

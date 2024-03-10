@@ -47,3 +47,8 @@ export interface User {
     phoneNumber: string;
     balance: string;
 }
+
+export interface CreateTypeOfArtwork{
+    type: string;
+    typeDescription: string;
+}

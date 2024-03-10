@@ -22,8 +22,7 @@ export async function LoginAsync( LoginProps : LoginProps ) {
             const reponse : LoginAsyncReponse = {
                 status : "SUCCESS",
                 data : data
-            };
-            console.log(data);
+            };            
             return reponse;
         } else {
             const data = await response.text();
