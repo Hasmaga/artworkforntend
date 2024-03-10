@@ -4,6 +4,7 @@ import { Login as LoginProps } from "@/app/component/lib/Interface";
 import { z } from "zod";
 import { LoginAsync } from '@/app/component/api/LoginAsync';
 import { LoginAsyncReponse } from '@/app/component/lib/Interface';
+import { GetRoleAsync } from '@/app/component/api/GetRoleAsync';
 
 export default function Login() {
     const [emailError, setEmailError] = useState('');
@@ -32,13 +33,35 @@ export default function Login() {
             setPasswordError('');
             const reponse: LoginAsyncReponse = await LoginAsync(user);
             if (reponse.status == "SUCCESS") {
-                // save token to local storage
-                localStorage.setItem('token', reponse.data);
-                window.location.href = "/";
+                const token = reponse.data;
+                localStorage.setItem('token', token);
+
+                const roleResponse = await GetRoleAsync(token);
+
+                if (roleResponse.status !== "SUCCESS") {
+                    alert('Server error');
+                }
+                if (roleResponse.data === undefined) {
+                    alert('Server error');
+                    return;
+                } else {
+                    localStorage.setItem('role', roleResponse.data);
+                }                
+                switch (roleResponse.data) {
+                    case "ADMIN":
+                        window.location.href = '/admin';
+                        break;
+                    case "CREATOR":
+                        window.location.href = '/creator';
+                        break;
+                    default:
+                        window.location.href = '/';
+                        break;
+                }
             } else {
                 setEmailError('');
-                setPasswordError('');   
-                setLoginError(reponse.data);             
+                setPasswordError('');
+                setLoginError(reponse.data);
             }
         } else {
             for (const error of result.error.errors) {

@@ -33,6 +33,7 @@ export interface Artwork{
 export interface TypeOfArtwork{
     id: string;
     type: string;
+    typeDescription: string;
 }
 
 export interface LoginAsyncReponse{
@@ -51,4 +52,10 @@ export interface User {
 export interface CreateTypeOfArtwork{
     type: string;
     typeDescription: string;
+}
+
+export interface AsyncResponse<T> {
+    status: string;
+    data?: T;
+    error?: string;
 }
