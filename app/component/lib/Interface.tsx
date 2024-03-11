@@ -54,6 +54,12 @@ export interface CreateTypeOfArtwork{
     typeDescription: string;
 }
 
+export interface GetCreator{
+    creatorId: string;
+    creatorFristName: string;
+    creatorLastName: string;
+}
+
 export interface AsyncResponse<T> {
     status: string;
     data?: T;
