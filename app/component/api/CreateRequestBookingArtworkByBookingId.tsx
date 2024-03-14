@@ -9,7 +9,10 @@ export async function CreateRequestBookingArtworkByBookingId (token : string, re
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             },
-            body: JSON.stringify({requestBooking})
+            body: JSON.stringify({
+                bookingId: requestBooking.bookingId,
+                contentRequest: requestBooking.contentRequest
+            })
         })
         if (!response.ok) {
             throw await response.text()

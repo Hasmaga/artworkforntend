@@ -3,8 +3,7 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react';
 import Logo from '@/public/next.svg'
 import Link from 'next/link'
-import Home from '@/public/home.svg'
-import Create from '@/public/create-note-svgrepo-com.svg'
+
 
 export default function Navbar() {
   const [token, setToken] = useState<string | null>(null);
@@ -15,6 +14,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     if (typeof window !== 'undefined') {
       window.location.reload();
     }  
