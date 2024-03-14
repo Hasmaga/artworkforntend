@@ -25,8 +25,7 @@ export default function CreateTypeOfArtwork(){
         const result = schema.safeParse({ type, typeDescription });
         if (result.success) {            
             setTypeError('');
-            setTypeDescriptionError('');
-            
+            setTypeDescriptionError('');    
             
         } else {
             for (const error of result.error.errors) {

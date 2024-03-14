@@ -57,8 +57,7 @@ export default function SignUp() {
         const passwordConfirm = passwordConfirmRef.current?.value;
         const result = schema.safeParse({ email, password, firstName, lastName, phone, passwordConfirm });
         if (result.success) {
-            const user: SignUpProps = result.data;
-            console.log(user);
+            const user: SignUpProps = result.data;            
             setEmailError('');
             setPasswordError('');
             setFirstNameError('');
@@ -134,7 +133,7 @@ export default function SignUp() {
                 className='p-2 border-2 rounded-md hover:border-green-500 focus:border-green-500'
             />
             {passwordConfirmError && <p className='text-red-500'>{passwordConfirmError}</p>}
-            <button type="submit" className='p-2 bg-green-500 text-white text-lg rounded-md shadow-lg'>Đăng nhập</button>
+            <button type="submit" className='p-2 bg-green-500 text-white text-lg rounded-md shadow-lg'>Đăng ký</button>
         </form>
     );
 }

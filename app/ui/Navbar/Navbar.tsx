@@ -28,13 +28,7 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div className="flex flex-row space-x-5 pr-20 justify-items-center ">
-        <Link href="/" className="p-1">
-            <Image src={Home} alt="home" width={50} height={50} />
-        </Link> 
-        <Link href="/create" className="p-1">
-            <Image src={Create} alt="create" width={50} height={50} />
-        </Link>           
+      <div className="flex flex-row space-x-5 pr-20 justify-items-center ">                          
       </div>
 
       <div className='flex flex-row space-x-5'>

@@ -7,8 +7,7 @@ export default function SelectListCreator({ selectedCreator, onSelectionChange }
     const [listCreator, setListCreator] = useState<GetCreator[]>([]);
     const [error, setError] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true);
-    const [selected, setSelected] = useState<GetCreator>(selectedCreator ?? {} as GetCreator);
-    const [errormMessage, setErrorMessage] = useState<string>("");
+    const [selected, setSelected] = useState<GetCreator>(selectedCreator ?? {} as GetCreator);    
     useEffect(() => {
         const fetchListCreator = async () => {
             setLoading(true);
@@ -36,10 +35,10 @@ export default function SelectListCreator({ selectedCreator, onSelectionChange }
     const handleChange = (selectedOption: any) => {
         const selectedCreator = listCreator.find(creator => creator.creatorId === selectedOption.value);
 
-        if (selectedCreator !== undefined) {
+        if (selectedCreator !== undefined) {            
             setSelected(selectedCreator);
         } else {
-            setErrorMessage("Creator not found");
+            setSelected({} as GetCreator);
         }
     };
     return (
@@ -54,8 +53,7 @@ export default function SelectListCreator({ selectedCreator, onSelectionChange }
                         options={options}
                         onChange={handleChange}
                         value={{ value: selected.creatorId, label: selected.creatorLastName }}
-                    />
-                    {errormMessage && <div>{errormMessage}</div>}
+                    />                    
                 </div>
             )}
         </div>

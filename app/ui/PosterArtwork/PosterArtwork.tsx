@@ -1,6 +1,5 @@
 'use client';
 import { PostetArtwork } from "@/app/component/lib/Interface";
-import Image from "next/image"
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -27,7 +26,8 @@ export default function PosterArtwork({ onCommentButtonClick }: PosterArtworkPro
                     typeOfArtwork: [
                         {
                             id: '1',
-                            type: 'Lorem ipsum dolor sit amet'
+                            type: 'Lorem ipsum dolor sit amet',
+                            typeDescription: 'Lorem ipsum dolor sit amet'
                         }
                     ]
                 }

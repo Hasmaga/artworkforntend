@@ -1,7 +1,10 @@
+'use client';
+import useCheckToken from "../component/helper/useCheckToken";
 import LeftNavbarCustomer from "../ui/LeftNavbar/LeftNavbarCustomer";
 import Navbar from "../ui/Navbar/Navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+    useCheckToken();
     return (
         <div>
             <Navbar />

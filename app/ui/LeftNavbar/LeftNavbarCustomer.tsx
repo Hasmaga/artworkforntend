@@ -1,24 +1,37 @@
 'use client';
-import { User } from "@/app/component/lib/Interface";
+import { LoggedInAccount } from "@/app/component/lib/Interface";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { GetLoggedAccountAsync } from "@/app/component/api/GetLoggedAccountAsync";
 
-export default function LeftNavbar() {
-    const [token, setToken] = useState<string>();
-    const [user, setUser] = useState<User>();
+export default function LeftNavbarCustomer() {
+    const router = useRouter();
+    const [user, setUser] = useState<LoggedInAccount>();
     const [isDropdownCustomerVisible, setDropdownCustomerVisible] = useState(false);
-    const [isDropdownArtistVisible, setDropdownArtistVisible] = useState(false);
 
     const toggleDropdownCustomer = () => {
         setDropdownCustomerVisible(!isDropdownCustomerVisible);
     };
 
-    const toggleDropdownArtist = () => {
-        setDropdownArtistVisible(!isDropdownArtistVisible);
-    };
-    // if (!user) {
-    //     return <div>Loading...</div>;
-    // }
+    useEffect(() => {
+        const fetchUser = async () => {
+            const tokenFromStorage = localStorage.getItem('token');
+            if (tokenFromStorage) {
+                const loggedInUser = await GetLoggedAccountAsync(tokenFromStorage);
+                if (loggedInUser.status === "SUCCESS" && loggedInUser.data !== undefined) {
+                    setUser(loggedInUser.data);
+                } else {
+                    router.push('/login');
+                }
+            } else {
+                router.push('/login');
+            }
+        };
+
+        fetchUser();
+    }, []);
+
     return (
         <div className="h-screen shadow-lg w-2/12 fixed left-0 top-auto overflow-auto">
             <div className="p-6">
@@ -37,9 +50,13 @@ export default function LeftNavbar() {
                                     <div>
                                         <p className="text-sm">Số dư: {user?.balance} vnđ</p>
                                     </div>
-                                    <div>
-                                        <p className="text-sm">Số điện thoại: {user?.phoneNumber}</p>
-                                    </div>
+                                    {
+                                        user?.phoneNumber === undefined && (
+                                            <div>
+                                                <p className="text-sm">Số điện thoại: {user?.phoneNumber}</p>
+                                            </div>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </li>
@@ -86,7 +103,7 @@ export default function LeftNavbar() {
                                                 <span>Tạo yêu cầu đặt tranh</span>
                                             </Link>
                                         </div>
-                                    </li>                                    
+                                    </li>
                                     <li>
                                         <div>
                                             <Link href='/customer/topup' className='flex items-center hover:bg-green-300 p-2 rounded'>
@@ -96,7 +113,7 @@ export default function LeftNavbar() {
                                     </li>
                                 </ul>
                             )}
-                        </li>                        
+                        </li>
                     </ul>
                 </nav>
             </div>
