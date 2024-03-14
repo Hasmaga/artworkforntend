@@ -104,3 +104,11 @@ export interface CreateRequestBooking{
     bookingId: string;
     contentRequest: string;
 }
+
+export interface RegisterMember{
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+}

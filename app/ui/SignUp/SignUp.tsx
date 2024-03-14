@@ -1,7 +1,8 @@
 'use client';
 import { useRef, useState } from "react";
-import { SignUp as SignUpProps } from "@/app/component/lib/Interface";
+import { RegisterMember, SignUp as SignUpProps } from "@/app/component/lib/Interface";
 import { z } from "zod";
+import { RegisterMemberAsync } from "@/app/component/api/RegisterMemberAsync";
 
 export default function SignUp() {
     const [emailError, setEmailError] = useState('');
@@ -46,7 +47,7 @@ export default function SignUp() {
         path: ["passwordConfirm"]
     });
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         const email = emailRef.current?.value;
@@ -57,13 +58,25 @@ export default function SignUp() {
         const passwordConfirm = passwordConfirmRef.current?.value;
         const result = schema.safeParse({ email, password, firstName, lastName, phone, passwordConfirm });
         if (result.success) {
-            const user: SignUpProps = result.data;            
             setEmailError('');
             setPasswordError('');
             setFirstNameError('');
             setLastNameError('');
             setPhoneError('');
             setPasswordConfirmError('');
+            const user: RegisterMember = {
+                email: result.data.email,
+                password: result.data.password,
+                firstName: result.data.firstName,
+                lastName: result.data.lastName,
+                phoneNumber: result.data.phone ?? "" 
+            };     
+            const response = await RegisterMemberAsync(user);
+            if (response.status === "SUCCESS") {
+                alert("Đăng ký thành công");
+            } else {
+                alert("Đăng ký thất bại");
+            }        
         } else {
             for (const error of result.error.errors) {
                 if (error.path[0] === 'email') {
