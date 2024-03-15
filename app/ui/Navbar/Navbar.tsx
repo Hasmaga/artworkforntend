@@ -3,13 +3,18 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react';
 import Logo from '@/public/next.svg'
 import Link from 'next/link'
+import NavbarCreator from './NavbarCreator';
+import NavbarAdmin from './NavbarAdmin';
+import NavbarCustomer from './NavbarCustomer';
 
 
 export default function Navbar() {
   const [token, setToken] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
 
   useEffect(() => {
     setToken(localStorage.getItem('token'));
+    setRole(localStorage.getItem('role'));
   }, []);
 
   const handleLogout = () => {
@@ -28,7 +33,14 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div className="flex flex-row space-x-5 pr-20 justify-items-center ">                          
+      <div className="flex flex-row space-x-5 pr-20 justify-items-center ">     
+      {role === 'creator' ? (
+        <NavbarCreator />
+      ) : role === 'admin' ? (
+        <NavbarAdmin /> 
+      ) : role === 'MEMBER' ? (
+        <NavbarCustomer />
+      ) : null}                   
       </div>
 
       <div className='flex flex-row space-x-5'>
