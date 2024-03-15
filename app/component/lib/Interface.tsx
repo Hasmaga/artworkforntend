@@ -91,6 +91,13 @@ export interface TypeOfArtwork{
     id: string;
     type: string;
     typeDescription: string;
+    statusName: string;
+}
+
+export interface UpdateTypeOfArtwork{
+    typeOfArtworkID: string;
+    type: string;
+    typeDescription: string;
 }
 
 export interface RequestBooking {
