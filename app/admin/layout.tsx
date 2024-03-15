@@ -1,10 +1,25 @@
 'use client';
+import { useEffect, useState } from "react";
 import useCheckToken from "../component/helper/useCheckToken";
 import LeftNavbarAdmin from "../ui/LeftNavbar/LeftNavbarAdmin";
 import Navbar from "../ui/Navbar/Navbar";
+import checkIsAdmin from "../component/helper/checkIsAdmin";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+    const [isAdmin, setIsAdmin] = useState(false);
     useCheckToken();
+    useEffect(() => {
+        setIsAdmin(checkIsAdmin());
+    }, []);
+
+    if (!isAdmin) {
+        return (
+            <div className="flex items-center justify-center h-screen text-2xl text-red-500">
+                You are not authorized
+            </div>
+        );
+    }
+
     return (
         <div>
             <Navbar />

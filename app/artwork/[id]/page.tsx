@@ -28,6 +28,10 @@ export default function Page() {
         return <div>Loading...</div>;
     }
 
+    const handleShare = () => {
+        navigator.clipboard.writeText(window.location.href);
+        alert('URL copied to clipboard');
+    };
 
     return (
         <div className="bg-gray-100 h-screen flex flex-col">
@@ -66,7 +70,7 @@ export default function Page() {
                         </div>
                         <div className="flex flex-row border-b-2">
                             <button className="w-full py-2 rounded-md">Thích</button>
-                            <button className="w-full py-2 rounded-md">Chia sẻ</button>
+                            <button onClick={handleShare} className="w-full py-2 rounded-md">Chia sẻ</button>
                             <button className="w-full py-2 rounded-md">Mua</button>
                         </div>
                         <div className="flex flex-col pt-3">

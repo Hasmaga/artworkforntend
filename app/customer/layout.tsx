@@ -4,7 +4,11 @@ import LeftNavbarCustomer from "../ui/LeftNavbar/LeftNavbarCustomer";
 import Navbar from "../ui/Navbar/Navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-    useCheckToken();
+    const isLoading = useCheckToken();
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
     return (
         <div>
             <Navbar />
@@ -13,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <LeftNavbarCustomer />
                 </div>
                 <div className="bg-gray-100 w-10/12 flex items-center justify-center">
-                    {children}                    
+                    {children}
                 </div>
             </div>
         </div>

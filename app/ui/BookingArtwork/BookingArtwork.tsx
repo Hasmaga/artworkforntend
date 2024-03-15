@@ -4,10 +4,8 @@ import SelectListCreator from "../SelectListCreator/SelectListCreator";
 import { useRef, useState } from "react";
 import SelectListTypeOfArtwork from "../SelectListTypeOfArtwork/SelectListTypeOfArtwork";
 import { CreateBookingAsync } from "@/app/component/api/CreateBookingAsync";
-import { useRouter } from "next/navigation";
 
-export default function BookingArtwork() {
-    const router = useRouter();
+export default function BookingArtwork() {    
     const [selectedCreator, setSelectedCreator] = useState<GetCreator>();
     const [selectedListTypeOfArtwork, setSelectedListTypeOfArtwork] = useState<TypeOfArtwork[]>();
     const [artworkDescription, setArtworkDescription] = useState<string>("");

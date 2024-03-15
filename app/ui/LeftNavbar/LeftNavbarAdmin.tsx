@@ -72,28 +72,42 @@ export default function LeftNavbarAdmin() {
                                     <li>
                                         <div>
                                             <Link href='/creator/profile' className='flex items-center hover:bg-green-300 p-2 rounded'>
-                                                <span>Thông tin cá nhân</span>
+                                                <span>Quản lý booking art</span>
                                             </Link>
                                         </div>
                                     </li>                                    
                                     <li>
                                         <div>
                                             <Link href='/creator/listArt' className='flex items-center hover:bg-green-300 p-2 rounded'>
-                                                <span>Danh sách ảnh</span>
+                                                <span>Quản lý complaint</span>
                                             </Link>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <Link href='/creator/bookingArtwork' className='flex items-center hover:bg-green-300 p-2 rounded'>
-                                                <span>Danh sách đặt tranh</span>
+                                                <span>Quản lý creator</span>
                                             </Link>
                                         </div>
                                     </li>                                    
                                     <li>
                                         <div>
                                             <Link href='/creator/wallet' className='flex items-center hover:bg-green-300 p-2 rounded'>
-                                                <span>Ví</span>
+                                                <span>Quản lý customer</span>
+                                            </Link>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <Link href='/creator/wallet' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                                <span>Quản lý payment</span>
+                                            </Link>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <Link href='/creator/wallet' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                                <span>Quản lý profile</span>
                                             </Link>
                                         </div>
                                     </li>

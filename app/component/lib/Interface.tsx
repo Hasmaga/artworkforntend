@@ -112,3 +112,15 @@ export interface RegisterMember{
     phoneNumber: string;
     password: string;
 }
+
+export interface BookingByCreator{
+    bookingId: string;
+    userName: string;
+    listTypeOfArtwork: TypeOfArtwork[];
+    statusName: string;
+    description: string;
+    price: number;
+    image: string;
+    requestBooking: RequestBooking[];
+    createDateTime: string;
+}
