@@ -101,6 +101,7 @@ export interface UpdateTypeOfArtwork{
 }
 
 export interface RequestBooking {
+    requestBookingId: string;
     description: string;
     statusName: string;
     image: string;

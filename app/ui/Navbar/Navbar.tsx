@@ -34,9 +34,9 @@ export default function Navbar() {
       </div>
 
       <div className="flex flex-row space-x-5 pr-20 justify-items-center ">     
-      {role === 'creator' ? (
+      {role === 'CREATOR' ? (
         <NavbarCreator />
-      ) : role === 'admin' ? (
+      ) : role === 'ADMIN' ? (
         <NavbarAdmin /> 
       ) : role === 'MEMBER' ? (
         <NavbarCustomer />

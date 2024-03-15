@@ -1,10 +1,7 @@
 'use client'
 import { GetListTypeOfArtworkAsyncByRoleAdmin } from "@/app/component/api/GetListTypeOfArtworkAsyncByRoleAdmin";
-import { AsyncResponse, TypeOfArtwork, UpdateTypeOfArtwork } from "@/app/component/lib/Interface";
-import { CreateTypeOfArtwork } from "@/app/component/lib/Interface";
+import { TypeOfArtwork, UpdateTypeOfArtwork } from "@/app/component/lib/Interface";
 import { CreateTypeOfArtworkAsync } from "@/app/component/api/CreateTypeOfArtworkAsync";
-import { log } from "console";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UpdateTypeOfArtworkAsync } from "@/app/component/api/UpdateTypeOfArtworkAsync";

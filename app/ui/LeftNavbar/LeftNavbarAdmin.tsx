@@ -71,43 +71,43 @@ export default function LeftNavbarAdmin() {
                                 <ul className="ml-3">
                                     <li>
                                         <div>
-                                            <Link href='/creator/profile' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                            <Link href='/admin/managarBookingArt' className='flex items-center hover:bg-green-300 p-2 rounded'>
                                                 <span>Quản lý booking art</span>
                                             </Link>
                                         </div>
                                     </li>                                    
                                     <li>
                                         <div>
-                                            <Link href='/creator/listArt' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                            <Link href='/admin/managerComplain' className='flex items-center hover:bg-green-300 p-2 rounded'>
                                                 <span>Quản lý complaint</span>
                                             </Link>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
-                                            <Link href='/creator/bookingArtwork' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                            <Link href='/admin/managerCreator' className='flex items-center hover:bg-green-300 p-2 rounded'>
                                                 <span>Quản lý creator</span>
                                             </Link>
                                         </div>
                                     </li>                                    
                                     <li>
                                         <div>
-                                            <Link href='/creator/wallet' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                            <Link href='/admin/managerCustomer' className='flex items-center hover:bg-green-300 p-2 rounded'>
                                                 <span>Quản lý customer</span>
                                             </Link>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
-                                            <Link href='/creator/wallet' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                            <Link href='/admin/managerPayment' className='flex items-center hover:bg-green-300 p-2 rounded'>
                                                 <span>Quản lý payment</span>
                                             </Link>
                                         </div>
-                                    </li>
+                                    </li>                                    
                                     <li>
                                         <div>
-                                            <Link href='/creator/wallet' className='flex items-center hover:bg-green-300 p-2 rounded'>
-                                                <span>Quản lý profile</span>
+                                            <Link href='/admin/managerTypeOfArtwork' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                                <span>Quản lý loại tranh</span>
                                             </Link>
                                         </div>
                                     </li>
