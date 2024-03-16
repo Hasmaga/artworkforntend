@@ -7,6 +7,7 @@ import { UploadImageToBookingByCreatorAsync } from "@/app/component/api/UploadIm
 import { FormUploadImageToBookingByCreator } from "../FormUploadImageToBookingByCreator/FormUploadImageToBookingByCreator";
 import { FormUploadImageToRequestArtworkByCreator } from "../FormUploadImageToRequestArtworkByCreator/FormUploadImageToRequestArtworkByCreator";
 import ButtonChangeStatusBookingByCreator from "../ButtonChangeStatusBookingByCreator/ButtonChangeStatusBookingByCreator";
+import ButtonChangeStatusRequestByCreator from "../ButtonChangeStatusRequestByCreator/ButtonChangeStatusRequestByCreator";
 
 export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bookingId: string }) {
     const [booking, setBooking] = useState<BookingByCreator>();
@@ -71,6 +72,7 @@ export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bo
                                     <div className="font-semibold">Thời gian tạo: <span className="font-normal">{artwork.createDateTime}</span></div>
                                     <div className="font-semibold">Mô tả thêm: <span className="font-normal">{artwork.description}</span></div>
                                     <div className="font-semibold">Tình trạng: <span className="font-normal">{artwork.statusName}</span></div>
+                                    <ButtonChangeStatusRequestByCreator requestBookingId={artwork.requestBookingId} token={tokenl} />
                                     <div className="font-semibold">Tranh:
                                         {artwork.image ?
                                             (

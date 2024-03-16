@@ -137,3 +137,8 @@ export interface ChangeStatusBookingByCreator{
     bookingId: string;
     isAccept: boolean;
 }
+
+export interface ChangeStatusRequestByCreator{
+    requestBookingId: string;
+    isAccept: boolean;
+}
