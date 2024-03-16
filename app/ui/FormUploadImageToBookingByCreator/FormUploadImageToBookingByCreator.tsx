@@ -6,7 +6,7 @@ interface ImageUploadFormProps {
     bookingId: string;
 }
 
-export const FormUploadImageToBookingByCreator : React.FC<ImageUploadFormProps> = ({ bookingId }) => {
+export const FormUploadImageToBookingByCreator: React.FC<ImageUploadFormProps> = ({ bookingId }) => {
     const [image, setImage] = useState<string | null>(null);
     const [name, setName] = useState<string | null>(null);
     const [description, setDescription] = useState<string | null>(null);
@@ -16,7 +16,11 @@ export const FormUploadImageToBookingByCreator : React.FC<ImageUploadFormProps> 
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
-            setImage(URL.createObjectURL(event.target.files[0]));
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImage(reader.result as string);
+            };
+            reader.readAsDataURL(event.target.files[0]);
         }
     };
 
@@ -54,7 +58,14 @@ export const FormUploadImageToBookingByCreator : React.FC<ImageUploadFormProps> 
                 alert("Description is required");
                 return;
             }
-            data.append('Data', image);
+
+            let binary = atob(image.split(',')[1]);
+            let array = [];
+            for (let i = 0; i < binary.length; i++) {
+                array.push(binary.charCodeAt(i));
+            }
+            let blob = new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+            data.append('Data', blob, "image.jpg");
             data.append('BookingId', bookingId);
             data.append('Title', name);
             data.append('Description', description);

@@ -5,13 +5,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import CreateRequestBookingAsync from "../CreateRequestBooking/CreateRequestBooking";
+import ButtonChangeStatusBookingByCreator from "../ButtonChangeStatusBookingByCreator/ButtonChangeStatusBookingByCreator";
 
 export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: string }) {
     const [booking, setBooking] = useState<BookingByCustomer>();
     const [error, setError] = useState<string>("");
     const router = useRouter();
-    const [popupRequestBooking, setPopupRequestBooking] = useState<boolean>(false);
-
+    const [popupRequestBooking, setPopupRequestBooking] = useState<boolean>(false);    
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
@@ -27,7 +27,7 @@ export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: 
                     setError(response.error ?? "Unknown error");
                 }
             }
-            fetchListBooking();
+            fetchListBooking();            
         } else {
             alert("You are not login")
             router.push("/login");
@@ -50,10 +50,11 @@ export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: 
                             <div className="font-semibold">Mô tả đặt tranh: <span className="font-normal">{booking.description}</span></div>
                             <div className="font-semibold">Giá: <span className="font-normal">{booking.price}</span></div>
                             <div className="font-semibold">Thời gian đặt tranh: <span className="font-normal">{booking.createDateTime}</span></div>
+                            
                             <div className="font-semibold">Tranh:
                                 {booking.image ?
                                     (
-                                        <Image src={booking.image} alt="" className="w-1/4 h-1/4" />
+                                        <Image src={`data:image/jpeg;base64,${booking.image}`} alt="" className="w-1/4 h-1/4" width={100} height={100} />
                                     ) : (
                                         <p className="font-normal">Hiện chưa có tranh mà bạn yêu cầu</p>
                                     )
@@ -70,7 +71,7 @@ export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: 
                                     <div className="font-semibold">Tranh:
                                         {artwork.image ?
                                             (
-                                                <Image src={booking.image} alt="" className="w-1/4 h-1/4" />
+                                                <Image src={`data:image/jpeg;base64,${artwork.image}`} alt="" className="w-1/4 h-1/4" width={100} height={100} />
                                             ) : (
                                                 <p className="font-normal">Hiện chưa có tranh mà bạn yêu cầu</p>
                                             )

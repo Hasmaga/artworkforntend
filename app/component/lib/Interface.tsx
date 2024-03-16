@@ -132,3 +132,8 @@ export interface BookingByCreator{
     requestBooking: RequestBooking[];
     createDateTime: string;
 }
+
+export interface ChangeStatusBookingByCreator{
+    bookingId: string;
+    isAccept: boolean;
+}

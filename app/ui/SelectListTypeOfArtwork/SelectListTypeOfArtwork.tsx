@@ -1,4 +1,4 @@
-import { GetListTypeOfArtwork } from "@/app/component/api/GetListTypeOfArtworkAsyncByRoleAdmin";
+import { GetListTypeOfArtwork } from "@/app/component/api/GetListTypeOfArtwork";
 import { TypeOfArtwork } from "@/app/component/lib/Interface";
 import { useEffect, useState } from "react";
 import Select from "react-select";

@@ -6,10 +6,12 @@ import { GetBookingByCreatorAsync } from "@/app/component/api/GetBookingByCreato
 import { UploadImageToBookingByCreatorAsync } from "@/app/component/api/UploadImageToBookingByCreatorAsync";
 import { FormUploadImageToBookingByCreator } from "../FormUploadImageToBookingByCreator/FormUploadImageToBookingByCreator";
 import { FormUploadImageToRequestArtworkByCreator } from "../FormUploadImageToRequestArtworkByCreator/FormUploadImageToRequestArtworkByCreator";
+import ButtonChangeStatusBookingByCreator from "../ButtonChangeStatusBookingByCreator/ButtonChangeStatusBookingByCreator";
 
 export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bookingId: string }) {
     const [booking, setBooking] = useState<BookingByCreator>();
     const [error, setError] = useState<string>("");    
+    const [tokenl, setTokenl] = useState<string>("");
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -27,6 +29,7 @@ export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bo
                 }
             }
             fetchListBooking();
+            setTokenl(token);
         } else {
             alert("You are not login")
             window.location.href = "/login";
@@ -48,10 +51,11 @@ export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bo
                             <div className="font-semibold">Mô tả đặt tranh: <span className="font-normal">{booking.description}</span></div>
                             <div className="font-semibold">Giá: <span className="font-normal">{booking.price}</span></div>
                             <div className="font-semibold">Thời gian đặt tranh: <span className="font-normal">{booking.createDateTime}</span></div>
+                            <ButtonChangeStatusBookingByCreator bookingId={bookingId} token={tokenl} />
                             <div className="font-semibold">Tranh:
                                 {booking.image ?
                                     (
-                                        <Image src={booking.image} alt="" className="w-1/4 h-1/4" />
+                                        <Image src={`data:image/jpeg;base64,${booking.image}`} alt="" className="w-1/4 h-1/4" width={100} height={100}/>
                                     ) : (
                                         <div>                                            
                                             <FormUploadImageToBookingByCreator bookingId={bookingId}/>
@@ -70,7 +74,7 @@ export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bo
                                     <div className="font-semibold">Tranh:
                                         {artwork.image ?
                                             (
-                                                <Image src={booking.image} alt="" className="w-1/4 h-1/4" />
+                                                <Image src={`data:image/jpeg;base64,${artwork.image}`} alt="" className="w-1/4 h-1/4" width={100} height={100}/>
                                             ) : (
                                                 <div>
                                                     <FormUploadImageToRequestArtworkByCreator requestArtworkId={artwork.requestBookingId}/>
