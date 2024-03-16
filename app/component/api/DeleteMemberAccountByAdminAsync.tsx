@@ -3,9 +3,9 @@
 import { AsyncResponse } from "../lib/Interface";
 import { URL } from "./Url";
 
-export async function DeleteTypeOfArtworkAsync(typeOfArtworkID : string, token : string) {
+export async function DeleteMemberAccountByAdminAsync(memberAccountID : string, token : string) {
     try {
-        const response = await fetch(`https://${URL}/typeofartworkapi/DeleteTypeOfArtwork?typeOfArtworkID=${typeOfArtworkID}`, {
+        const response = await fetch(`https://${URL}/accountapi/DeleteMemeberAccountByRoleAdminAsync?id=${memberAccountID}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

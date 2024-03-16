@@ -1,16 +1,17 @@
 // api/CreateTypeOfArtworkAsync.js
 
-import { AsyncResponse } from "../lib/Interface";
+import { AsyncResponse, CreateAccountDto } from "../lib/Interface";
 import { URL } from "./Url";
 
-export async function DeleteTypeOfArtworkAsync(typeOfArtworkID : string, token : string) {
+export async function CreateMemberAccountByAdminAsync(createAcountDto : CreateAccountDto, token : string) {
     try {
-        const response = await fetch(`https://${URL}/typeofartworkapi/DeleteTypeOfArtwork?typeOfArtworkID=${typeOfArtworkID}`, {
-            method: "DELETE",
+        const response = await fetch(`https://${URL}/accountapi/registermember`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token
             },
+            body: JSON.stringify(createAcountDto)
         });
 
         if (!response.ok) {
