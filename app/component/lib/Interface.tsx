@@ -137,3 +137,28 @@ export interface ChangeStatusBookingByCreator{
     bookingId: string;
     isAccept: boolean;
 }
+
+export interface AccountResponseDto{
+    id : string;
+    firstName : string;
+    lastName : string;
+    email : string;
+    phoneNumber : string;
+    statusName : string;
+    roleName : string;
+} 
+
+export interface CreateAccountDto{
+    firstName : string;
+    lastName : string;
+    email : string;
+    phoneNumber : string;
+    password : string;
+}
+
+export interface UpdateAccountDto{
+    id : string;
+    firstName : string;
+    lastName : string;
+    phoneNumber : string;
+}
