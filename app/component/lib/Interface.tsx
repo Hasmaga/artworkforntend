@@ -137,7 +137,7 @@ export interface ChangeStatusBookingByCreator{
     bookingId: string;
     isAccept: boolean;
 }
-
+  
 export interface AccountResponseDto{
     id : string;
     firstName : string;
@@ -161,4 +161,9 @@ export interface UpdateAccountDto{
     firstName : string;
     lastName : string;
     phoneNumber : string;
+}
+
+export interface ChangeStatusRequestByCreator{
+    requestBookingId: string;
+    isAccept: boolean;
 }
