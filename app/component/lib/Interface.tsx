@@ -171,7 +171,20 @@ export interface ChangeStatusRequestByCreator{
     requestBookingId: string;
     isAccept: boolean;
 }
-
+  
+export interface BookingByAdmin{
+    bookingId: string;
+    customerName: string;
+    creatorName: string;
+    listTypeOfArtwork: TypeOfArtwork[];
+    statusName: string;
+    description: string;
+    price: number;
+    image: string;
+    requestBooking: RequestBooking[];
+    createDateTime: string;
+}
+  
 export interface GetArtworkByCreator{
     artworkId: string;
     title: string;
