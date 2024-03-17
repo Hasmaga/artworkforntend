@@ -1,16 +1,18 @@
 // api/CreateTypeOfArtworkAsync.js
 
-import { AsyncResponse } from "../lib/Interface";
+import { AsyncResponse, ChangeStatusRequestDto } from "../lib/Interface";
 import { URL } from "./Url";
+import { ChangeStatusRequestByCreatorAsync } from '@/app/component/api/ChangeStatusRequestByCreatorAsync';
 
-export async function DeleteTypeOfArtworkAsync(typeOfArtworkID : string, token : string) {
+export async function ChangeStatusMemberAccountByAdminAsync(changeStatusRequestDto : ChangeStatusRequestDto, token : string) {
     try {
-        const response = await fetch(`https://${URL}/typeofartworkapi/DeleteTypeOfArtwork?typeOfArtworkID=${typeOfArtworkID}`, {
-            method: "DELETE",
+        const response = await fetch(`https://${URL}/accountapi/ChangeAccountStatusByRoleAdminAsync`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token
             },
+            body : JSON.stringify(changeStatusRequestDto)
         });
 
         if (!response.ok) {

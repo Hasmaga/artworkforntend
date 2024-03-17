@@ -1,11 +1,11 @@
 'use client'
 import { GetListTypeOfArtworkAsyncByRoleAdmin } from "@/app/component/api/GetListTypeOfArtworkAsyncByRoleAdmin";
-import { TypeOfArtwork, UpdateTypeOfArtwork } from "@/app/component/lib/Interface";
+import { ChangeStatusRequestDto, TypeOfArtwork, UpdateTypeOfArtwork } from "@/app/component/lib/Interface";
 import { CreateTypeOfArtworkAsync } from "@/app/component/api/CreateTypeOfArtworkAsync";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UpdateTypeOfArtworkAsync } from "@/app/component/api/UpdateTypeOfArtworkAsync";
-import { DeleteTypeOfArtworkAsync } from "@/app/component/api/DeleteTypeOfArtworkAsync";
+import { ChangeStatusTypeOfArtworkAsync } from "@/app/component/api/ChangeStatusTypeOfArtworkAsync";
 
 export default function Page() {
     const [listTypeOfArtwork, setListTypeOfArtwork] = useState<TypeOfArtwork[]>([]);
@@ -135,11 +135,16 @@ export default function Page() {
         }
     }
 
-    const handleDelete = async (typeOfArtworkId: string) => {
+    const handleDelete = async (typeOfArtworkId: string, typeOfArtworkStatusName: string) => {
         const token = localStorage.getItem("token");
         if (token) {
             try {
-                const response = await DeleteTypeOfArtworkAsync(typeOfArtworkId, token);
+                const statusName = (typeOfArtworkStatusName === "ACTIVE") ? "DEACTIVE" : "ACTIVE";
+                const changeStatusRequestDto : ChangeStatusRequestDto = {
+                    id : typeOfArtworkId,
+                    statusName : statusName
+                }
+                const response = await ChangeStatusTypeOfArtworkAsync(changeStatusRequestDto, token);
 
                 if (response.status === "SUCCESS") {
                     if (response.data !== undefined) {
@@ -321,13 +326,13 @@ export default function Page() {
                                             <button
                                                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                                                 onClick={() => {
-                                                    const confirmed = window.confirm("Are you sure you want to Delete Type Of Artwork?");
+                                                    const confirmed = window.confirm("Are you sure you want to Change Status Type Of Artwork?");
                                                     if (confirmed) {
-                                                        handleDelete(typeOfArtwork.id);
+                                                        handleDelete(typeOfArtwork.id, typeOfArtwork.statusName);
                                                     }
                                                 }}
                                             >
-                                                Delete
+                                            {typeOfArtwork.statusName === "ACTIVE" ? "DELETE" : "REVERSE"}
                                             </button>
                                         </td>
                                     </tr>

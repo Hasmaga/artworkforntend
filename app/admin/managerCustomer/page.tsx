@@ -1,6 +1,6 @@
 'use client'
 import { GetListMemberByRoleAdminAsync } from "@/app/component/api/GetListMemberByRoleAdminAsync";
-import { AccountResponseDto } from "@/app/component/lib/Interface";
+import { AccountResponseDto, ChangeStatusRequestDto } from "@/app/component/lib/Interface";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CreateAccountDto } from "@/app/component/lib/Interface";
@@ -8,7 +8,7 @@ import { CreateMemberAccountByAdminAsync } from "@/app/component/api/CreateMembe
 import { UpdateAccountDto } from "@/app/component/lib/Interface";
 import { UpdateMemberAccountByAdminAsync } from "@/app/component/api/UpdateMemberAccountByAdminAsync";
 import ResolvingViewport from 'next/dist/lib/metadata/types/metadata-interface.js';
-import { DeleteMemberAccountByAdminAsync } from "@/app/component/api/DeleteMemberAccountByAdminAsync";
+import { ChangeStatusMemberAccountByAdminAsync } from "@/app/component/api/ChangeStatusMemberAccountByAdminAsync";
 
 export default function Page() {
     // Get All Member
@@ -204,11 +204,16 @@ export default function Page() {
         }
     }
 
-    const handleDeleteMemberAccount = async (memberAccountId: string) => {
+    const handleDeleteMemberAccount = async (memberAccountId: string, memberAccountStatus : string) => {
         const token = localStorage.getItem("token");
         if (token) {
             try {
-                const response = await DeleteMemberAccountByAdminAsync(memberAccountId, token);
+                const statusName = (memberAccountStatus === "ACTIVE") ? "DEACTIVE" : "ACTIVE";
+                const changeStatusRequestDto : ChangeStatusRequestDto = {
+                    id : memberAccountId,
+                    statusName : statusName
+                }
+                const response = await ChangeStatusMemberAccountByAdminAsync(changeStatusRequestDto, token);
 
                 if (response.status === "SUCCESS") {
                     if (response.data !== undefined) {
@@ -444,12 +449,12 @@ export default function Page() {
                                         <td className="border border-gray-300 p-3">
                                             <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                                                 onClick={() => {
-                                                    const confirmed = window.confirm("Are you sure you want to Delete Customer Account?");
+                                                    const confirmed = window.confirm("Are you sure you want to Change Status Customer Account?");
                                                     if (confirmed) {
-                                                        handleDeleteMemberAccount(memberAccount.id);
+                                                        handleDeleteMemberAccount(memberAccount.id, memberAccount.statusName);
                                                     }
                                                 }}>
-                                                Delete
+                                                {memberAccount.statusName === "ACTIVE" ? "DELETE" : "REVERSE"}
                                             </button>
                                         </td>
                                     </tr>
