@@ -227,7 +227,6 @@ export interface ChangePasswordNotAuthentications {
     otpCode: string;
     newPassword: string;
 }
-
 export interface GetArtworkByGuest {
     creatorName: string;
     artworkName: string;
@@ -250,4 +249,13 @@ export interface PaymentResponse {
     order_url: string;
     order_token: string;
     qr_code: string;
+}
+export interface ChangePasswordAuthentications {
+    oldPasssword: string;
+    newPassword: string;
+}
+export interface UpdateYourAccount {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
 }
