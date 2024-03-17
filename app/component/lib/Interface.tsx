@@ -250,12 +250,26 @@ export interface PaymentResponse {
     order_token: string;
     qr_code: string;
 }
+
 export interface ChangePasswordAuthentications {
     oldPasssword: string;
     newPassword: string;
 }
+
 export interface UpdateYourAccount {
     firstName: string;
     lastName: string;
     phoneNumber: string;
+}
+
+export interface PreOrderByCustomer {
+    preOrderId: string;
+    artworkId: string;
+    artworkName: string;
+    description: string;
+    image: string;
+    creatorName: string;
+    stastusName: string;
+    price: number;
+    createDateTime: string;
 }

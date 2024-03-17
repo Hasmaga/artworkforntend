@@ -6,6 +6,7 @@ import { GetArtworkByGuestAsync } from "@/app/component/api/GetArtworkByGuestAsy
 import Image from "next/image";
 import { UnlikeArtworkAsync } from "@/app/component/api/UnlikeArtworkAsync";
 import { LikeArtworkAsync } from "@/app/component/api/LikeArtworkAsync";
+import { CreatePreOrderByCustomerAsync } from "@/app/component/api/CreatePreOrderByCustomerAsync";
 
 export default function Page({ params } : { params : { id : string }}) {
     const [artwork, setArtwork] = useState<GetArtworkByGuest>();
@@ -56,6 +57,22 @@ export default function Page({ params } : { params : { id : string }}) {
         }
     };
 
+    const handlePreOrder = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("You must be logged in to pre-order an artwork");
+            return;
+        }
+        if (artwork) {
+            const response = await CreatePreOrderByCustomerAsync(params.id, token);
+            if (response.status === "SUCCESS") {
+                alert("Pre-order created successfully");
+            } else {
+                alert(response.error ?? "Unknown error");
+            }
+        }
+    }
+
     return (
         <div className="bg-gray-100 h-screen flex flex-col">
             <Navbar />
@@ -90,7 +107,7 @@ export default function Page({ params } : { params : { id : string }}) {
                         <div className="flex flex-row border-b-2">
                         <button onClick={handleLike} className={`w-full py-2 rounded-md ${artwork.isLike ? 'text-red-500' : ''}`}>Thích</button>
                             <button onClick={handleShare} className="w-full py-2 rounded-md">Chia sẻ</button>
-                            {artwork.isSold ? <p className="w-full py-2 rounded-md bg-red-500 text-white">Đã bán</p> : <button className="w-full py-2 rounded-md">Mua</button>}                            
+                            {artwork.isSold ? <p className="w-full py-2 rounded-md bg-red-500 text-white">Đã bán</p> : <button onClick={handlePreOrder} className="w-full py-2 rounded-md">Mua</button>}                            
                         </div>
                         <div className="flex flex-col pt-3">
                             <div>
