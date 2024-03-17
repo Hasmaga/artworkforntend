@@ -18,8 +18,8 @@ const CustomOption: React.FC<OptionProps> = ({ data, innerProps }) => {
         return null;
     }
     return (
-        <div {...innerProps}>
-            <Image src={data.image} alt={data.label} width={20} height={20} />
+        <div {...innerProps} className="flex flex-row p-2">
+            <Image src={`data:image/jpeg;base64,${data.image}`} alt={data.label} width={50} height={50} />
             {data.label}
         </div>
     );
