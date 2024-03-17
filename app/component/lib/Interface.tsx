@@ -227,3 +227,12 @@ export interface ChangePasswordNotAuthentications {
     otpCode: string;
     newPassword: string;
 }
+export interface ChangePasswordAuthentications {
+    oldPasssword: string;
+    newPassword: string;
+}
+export interface UpdateYourAccount {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+}
