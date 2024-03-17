@@ -1,6 +1,6 @@
 export interface Login {
     email: string;
-    password: string;    
+    password: string;
 }
 
 export interface SignUp {
@@ -11,7 +11,7 @@ export interface SignUp {
     phone?: string;
 }
 
-export interface PostetArtwork{
+export interface PostetArtwork {
     postId: string;
     contentPost: string;
     creatorName: string;
@@ -20,7 +20,7 @@ export interface PostetArtwork{
     listArtwork: Artwork[];
 }
 
-export interface Artwork{
+export interface Artwork {
     artworkId: string;
     artworkName: string;
     creatorName: string;
@@ -30,7 +30,7 @@ export interface Artwork{
     image: string;
 }
 
-export interface LoginAsyncReponse{
+export interface LoginAsyncReponse {
     status: string;
     data: string;
 }
@@ -43,12 +43,12 @@ export interface User {
     balance: string;
 }
 
-export interface CreateTypeOfArtwork{
+export interface CreateTypeOfArtwork {
     type: string;
     typeDescription: string;
 }
 
-export interface GetCreator{
+export interface GetCreator {
     creatorId: string;
     creatorFristName: string;
     creatorLastName: string;
@@ -60,19 +60,19 @@ export interface AsyncResponse<T> {
     error?: string;
 }
 
-export interface CreateBooking{
+export interface CreateBooking {
     creatorId: string;
     contentBooking: string;
     listTypeOfArtwork: string[];
     price: number;
 }
 
-export interface LoggedInAccount{
-    firstName : string;
-    lastName : string;
-    email : string;
-    phoneNumber : string;
-    balance : number;
+export interface LoggedInAccount {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    balance: number;
 }
 
 export interface BookingByCustomer {
@@ -87,14 +87,14 @@ export interface BookingByCustomer {
     createDateTime: string;
 }
 
-export interface TypeOfArtwork{
+export interface TypeOfArtwork {
     id: string;
     type: string;
     typeDescription: string;
     statusName: string;
 }
 
-export interface UpdateTypeOfArtwork{
+export interface UpdateTypeOfArtwork {
     typeOfArtworkID: string;
     type: string;
     typeDescription: string;
@@ -108,12 +108,12 @@ export interface RequestBooking {
     createDateTime: string;
 }
 
-export interface CreateRequestBooking{
+export interface CreateRequestBooking {
     bookingId: string;
     contentRequest: string;
 }
 
-export interface RegisterMember{
+export interface RegisterMember {
     firstName: string;
     lastName: string;
     email: string;
@@ -121,7 +121,7 @@ export interface RegisterMember{
     password: string;
 }
 
-export interface BookingByCreator{
+export interface BookingByCreator {
     bookingId: string;
     userName: string;
     listTypeOfArtwork: TypeOfArtwork[];
@@ -133,46 +133,46 @@ export interface BookingByCreator{
     createDateTime: string;
 }
 
-export interface ChangeStatusBookingByCreator{
+export interface ChangeStatusBookingByCreator {
     bookingId: string;
     isAccept: boolean;
 }
-  
-export interface AccountResponseDto{
-    id : string;
-    firstName : string;
-    lastName : string;
-    email : string;
-    phoneNumber : string;
-    statusName : string;
-    roleName : string;
-} 
 
-export interface CreateAccountDto{
-    firstName : string;
-    lastName : string;
-    email : string;
-    phoneNumber : string;
-    password : string;
+export interface AccountResponseDto {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    statusName: string;
+    roleName: string;
 }
 
-export interface UpdateAccountDto{
-    id : string;
-    firstName : string;
-    lastName : string;
-    phoneNumber : string;
+export interface CreateAccountDto {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
 }
 
-export interface ChangeStatusRequestDto{
-    id : string;
-    statusName : string;
+export interface UpdateAccountDto {
+    id: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
 }
-export interface ChangeStatusRequestByCreator{
+
+export interface ChangeStatusRequestDto {
+    id: string;
+    statusName: string;
+}
+export interface ChangeStatusRequestByCreator {
     requestBookingId: string;
     isAccept: boolean;
 }
-  
-export interface BookingByAdmin{
+
+export interface BookingByAdmin {
     bookingId: string;
     customerName: string;
     creatorName: string;
@@ -184,8 +184,8 @@ export interface BookingByAdmin{
     requestBooking: RequestBooking[];
     createDateTime: string;
 }
-  
-export interface GetArtworkByCreator{
+
+export interface GetArtworkByCreator {
     artworkId: string;
     title: string;
     description: string;
@@ -197,19 +197,19 @@ export interface GetArtworkByCreator{
     price: number;
 }
 
-export interface GetArtworkByCustomer{
+export interface GetArtworkByCustomer {
     artworkId: string;
     artworkName: string;
     description: string;
     image: string;
     creatorName: string;
     statusName: string;
-    artworkList: TypeOfArtwork[];    
+    artworkList: TypeOfArtwork[];
     price: number;
     createDateTime: string;
 }
 
-export interface UploadArtworkByCreator{
+export interface UploadArtworkByCreator {
     artworkName: string;
     artworkDescription: string;
     typeOfArtwork: string[];
@@ -217,7 +217,13 @@ export interface UploadArtworkByCreator{
     artworkPrice: number;
 }
 
-export interface CreatePostByCreator{
+export interface CreatePostByCreator {
     contentPost: string;
     listArtwork: string[];
+}
+
+export interface ChangePasswordNotAuthentications {
+    email: string;
+    otpCode: string;
+    newPassword: string;
 }
