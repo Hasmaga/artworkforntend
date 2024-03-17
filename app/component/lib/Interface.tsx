@@ -163,6 +163,10 @@ export interface UpdateAccountDto{
     phoneNumber : string;
 }
 
+export interface ChangeStatusRequestDto{
+    id : string;
+    statusName : string;
+}
 export interface ChangeStatusRequestByCreator{
     requestBookingId: string;
     isAccept: boolean;
