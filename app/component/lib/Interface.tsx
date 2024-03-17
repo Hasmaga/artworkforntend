@@ -227,3 +227,27 @@ export interface ChangePasswordNotAuthentications {
     otpCode: string;
     newPassword: string;
 }
+
+export interface GetArtworkByGuest {
+    creatorName: string;
+    artworkName: string;
+    description: string;
+    artworkTypeList: TypeOfArtwork[];
+    image: string;
+    price: number;
+    isSold: boolean;
+    createDateTime: string;
+    likeCount: number;
+    isLike: boolean;
+}
+
+export interface PaymentResponse {
+    return_code: number;
+    return_message: string;
+    sub_return_code: number;
+    sub_return_message: string;
+    zp_trans_token: string;
+    order_url: string;
+    order_token: string;
+    qr_code: string;
+}

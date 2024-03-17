@@ -10,7 +10,7 @@ interface PosterArtworkProps {
 }
 export default function PosterArtwork({ onCommentButtonClick }: PosterArtworkProps) {
     const [listPosterArtwork, setListPosterArtwork] = useState<PostetArtwork[]>([]);
-
+    const [token, setToken] = useState<string | null>(null);
     useEffect(() => {
         const fetchListArtwork = async () => {
             const response = await GetListPostArtworkAsync();
@@ -21,6 +21,10 @@ export default function PosterArtwork({ onCommentButtonClick }: PosterArtworkPro
             }
         }
         fetchListArtwork();
+        const tokenFromStorage = localStorage.getItem('token');
+        if (tokenFromStorage) {
+            setToken(tokenFromStorage);
+        }
     }, []);
     return (
         <div className="flex flex-col p-5 m-5 space-y-3 max-w-4xl min-w-96">
@@ -36,7 +40,7 @@ export default function PosterArtwork({ onCommentButtonClick }: PosterArtworkPro
                     <div className="flex space-x-3 overflow-x-auto overflow-y-auto">
                         {posterArtwork.listArtwork.map((artwork) => (
                             <Link key={artwork.artworkId} href={`/artwork/${artwork.artworkId}`}>
-                                <div style={{ position: 'relative', width: '200px', height: '100px' }}>
+                                <div style={{ position: 'relative', width: '400px', height: '200px' }}>
                                     <Image
                                         src={`data:image/jpeg;base64,${artwork.image}`}
                                         alt='poster'
@@ -51,10 +55,9 @@ export default function PosterArtwork({ onCommentButtonClick }: PosterArtworkPro
                     <div className="flex flex-row justify-between mb-2 pb-2 border-b">
                         <p>Thích: {posterArtwork.likeCount}</p>
                     </div>
-                    <div className="flex flex-row">
-                        <button className="w-full py-2 rounded-md">Thích</button>
-                        <button className="w-full py-2 rounded-md" onClick={() => onCommentButtonClick(posterArtwork.postId)}>Bình luận</button>
-                        <button className="w-full py-2 rounded-md">Chia sẻ</button>
+                    <div className="flex flex-row">                        
+                        {token && <button className="w-full py-2 rounded-md">Thích</button>}
+                        <button className="w-full py-2 rounded-md" onClick={() => onCommentButtonClick(posterArtwork.postId)}>Bình luận</button>                        
                     </div>
                 </div>
             ))}
