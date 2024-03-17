@@ -163,11 +163,15 @@ export interface UpdateAccountDto{
     phoneNumber : string;
 }
 
+export interface ChangeStatusRequestDto{
+    id : string;
+    statusName : string;
+}
 export interface ChangeStatusRequestByCreator{
     requestBookingId: string;
     isAccept: boolean;
 }
-
+  
 export interface BookingByAdmin{
     bookingId: string;
     customerName: string;
@@ -179,4 +183,41 @@ export interface BookingByAdmin{
     image: string;
     requestBooking: RequestBooking[];
     createDateTime: string;
+}
+  
+export interface GetArtworkByCreator{
+    artworkId: string;
+    title: string;
+    description: string;
+    image: string;
+    typeOfArtworks: TypeOfArtwork[];
+    StatusName: string;
+    createDateTime: string;
+    userOwnerName: string;
+    price: number;
+}
+
+export interface GetArtworkByCustomer{
+    artworkId: string;
+    artworkName: string;
+    description: string;
+    image: string;
+    creatorName: string;
+    statusName: string;
+    artworkList: TypeOfArtwork[];    
+    price: number;
+    createDateTime: string;
+}
+
+export interface UploadArtworkByCreator{
+    artworkName: string;
+    artworkDescription: string;
+    typeOfArtwork: string[];
+    isPublic: boolean;
+    artworkPrice: number;
+}
+
+export interface CreatePostByCreator{
+    contentPost: string;
+    listArtwork: string[];
 }

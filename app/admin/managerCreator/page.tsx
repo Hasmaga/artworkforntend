@@ -8,7 +8,8 @@ import { CreateCreatorAccountByAdminAsync } from "@/app/component/api/CreateCrea
 import { UpdateAccountDto } from "@/app/component/lib/Interface";
 import { UpdateCreatorAccountByAdminAsync } from "@/app/component/api/UpdateCreatorAccountByAdminAsync"; 
 import ResolvingViewport from 'next/dist/lib/metadata/types/metadata-interface.js';
-import { DeleteCreatorAccountByAdminAsync } from "@/app/component/api/DeleteCreatorAccountByAdminAsync"; 
+import { ChangeStatusCreatorAccountByAdminAsync } from "@/app/component/api/ChangeStatusCreatorAccountByAdminAsync"; 
+import { ChangeStatusRequestDto } from '../../component/lib/Interface';
 
 
 export default function Page() {
@@ -205,11 +206,16 @@ export default function Page() {
         }
     }
 
-    const handleDeleteMemberAccount = async (memberAccountId: string) => {
+    const handleDeleteMemberAccount = async (memberAccountId: string, memberAccountStatus : string) => {
         const token = localStorage.getItem("token");
         if (token) {
             try {
-                const response = await DeleteCreatorAccountByAdminAsync(memberAccountId, token);
+                const statusName = (memberAccountStatus === "ACTIVE") ? "DEACTIVE" : "ACTIVE";
+                const changeStatusRequestDto :  ChangeStatusRequestDto = {
+                    id : memberAccountId,
+                    statusName : statusName
+                }
+                const response = await ChangeStatusCreatorAccountByAdminAsync(changeStatusRequestDto, token);
 
                 if (response.status === "SUCCESS") {
                     if (response.data !== undefined) {
@@ -445,12 +451,12 @@ export default function Page() {
                                         <td className="border border-gray-300 p-3">
                                             <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                                                 onClick={() => {
-                                                    const confirmed = window.confirm("Are you sure you want to Delete Creator Account?");
+                                                    const confirmed = window.confirm("Are you sure you want to Change Status Creator Account?");
                                                     if (confirmed) {
-                                                        handleDeleteMemberAccount(memberAccount.id);
+                                                        handleDeleteMemberAccount(memberAccount.id, memberAccount.statusName);
                                                     }
                                                 }}>
-                                                Delete
+                                                {memberAccount.statusName === "ACTIVE" ? "DELETE" : "REVERSE"}
                                             </button>
                                         </td>
                                     </tr>
