@@ -199,3 +199,8 @@ export interface UploadArtworkByCreator{
     isPublic: boolean;
     artworkPrice: number;
 }
+
+export interface CreatePostByCreator{
+    contentPost: string;
+    listArtwork: string[];
+}

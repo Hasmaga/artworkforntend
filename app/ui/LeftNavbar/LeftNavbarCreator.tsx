@@ -89,7 +89,14 @@ export default function LeftNavbarCreator() {
                                                 <span>Danh sách đặt tranh</span>
                                             </Link>
                                         </div>
-                                    </li>                                    
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <Link href='/creator/createPost' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                                <span>Tạo bài viết</span>
+                                            </Link>
+                                        </div>
+                                    </li>                              
                                     <li>
                                         <div>
                                             <Link href='/creator/wallet' className='flex items-center hover:bg-green-300 p-2 rounded'>
