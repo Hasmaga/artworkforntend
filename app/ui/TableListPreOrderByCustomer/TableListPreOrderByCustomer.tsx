@@ -3,6 +3,8 @@ import { GetListPreOrderByCustomerAsync } from "@/app/component/api/GetListPreOr
 import { PreOrderByCustomer } from "@/app/component/lib/Interface";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { DeleteArtworkInPreOrderByCustomer } from "@/app/component/api/DeleteArtworkInPreOrderByCustomer";
+import { BuyArtworkByCustomer } from "@/app/component/api/BuyArtworkByCustomer";
 
 export default function TableListPreOrderByCustomer() {
     const [listPreOrder, setListPreOrder] = useState<PreOrderByCustomer[]>([]);
@@ -27,9 +29,18 @@ export default function TableListPreOrderByCustomer() {
         setModalContent({
             title: 'Delete Item',
             message: 'Are you sure you want to delete this item?',
-            action: () => {
-                // Implement delete functionality here
-                console.log(`Delete: ${preOrderId}`);
+            action: async () => {
+                const token = localStorage.getItem("token");
+                if (token) {
+                    const response = await DeleteArtworkInPreOrderByCustomer(preOrderId, token);
+                    if (response.status === "SUCCESS") {
+                        alert("Item deleted successfully");
+                        fetchListPreOrder();
+                    } else {
+                        setError(response.error ?? "Unknown error");
+                        alert(error);
+                    }
+                }
                 setShowModal(false);
             }
         });
@@ -40,9 +51,18 @@ export default function TableListPreOrderByCustomer() {
         setModalContent({
             title: 'Buy Item',
             message: 'Are you sure you want to buy this item?',
-            action: () => {
-                // Implement buy functionality here
-                console.log(`Buy: ${preOrderId}`);
+            action: async () => {
+                const token = localStorage.getItem("token");
+                if (token) {
+                    const response = await BuyArtworkByCustomer(preOrderId, token);
+                    if (response.status === "SUCCESS") {
+                        alert("Item bought successfully");
+                        fetchListPreOrder();
+                    } else {
+                        setError(response.error ?? "Unknown error");
+                        alert(error);
+                    }
+                }                
                 setShowModal(false);
             }
         });
@@ -81,7 +101,7 @@ export default function TableListPreOrderByCustomer() {
                 <tbody>
                     {listPreOrder.map((preOrder) => (
                         <tr key={preOrder.preOrderId} className="text-sm text-gray-600">
-                            <td className="px-4 py-2"><Image src={`data:image/jpeg;base64,${preOrder.image}`} alt={preOrder.artworkName} width={100} height={100}/></td>
+                            <td className="px-4 py-2"><Image src={`data:image/jpeg;base64,${preOrder.image}`} alt={preOrder.artworkName} width={100} height={100} /></td>
                             <td className="px-4 py-2">{preOrder.artworkName}</td>
                             <td className="px-4 py-2">{preOrder.description}</td>
                             <td className="px-4 py-2">{preOrder.creatorName}</td>
@@ -90,7 +110,11 @@ export default function TableListPreOrderByCustomer() {
                             <td className="px-4 py-2">{preOrder.createDateTime}</td>
                             <td className="px-4 py-2">
                                 <button className="bg-red-500 text-white px-4 py-2 rounded mr-2" onClick={() => handleDelete(preOrder.preOrderId)}>Delete</button>
-                                <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => handleBuy(preOrder.preOrderId)}>Buy</button>
+                                {preOrder.isSold ? (
+                                    <span className="text-red-500">Sold</span>
+                                ) : (
+                                    <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => handleBuy(preOrder.preOrderId)}>Buy</button>
+                                )}
                             </td>
                         </tr>
                     ))}

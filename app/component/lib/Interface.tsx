@@ -272,4 +272,16 @@ export interface PreOrderByCustomer {
     stastusName: string;
     price: number;
     createDateTime: string;
+    isSold: boolean;
+}
+
+export interface ArtworkOwnByCustomer {
+    artworkId: string;
+    artworkName: string;
+    artworkDescription: string;
+    creatorName: string;    
+    typeOfArtwork: TypeOfArtwork[];
+    createDateTime: string;
+    image: string;    
+    price: number;    
 }
