@@ -1,37 +1,39 @@
-import { PostetArtwork, AsyncResponse } from "../lib/Interface";
+import { GetComment, AsyncResponse } from "../lib/Interface";
 import { URL } from "./Url";
 
-export async function GetListPostArtworkAsync(token: string) {
+export async function GetListArtworkCommentAsync(artworkId: string, token: string) {
     try {
-        const response = await fetch(`https://${URL}/PostApi/GetListPostArtwork`, {
+        const response = await fetch(`https://${URL}/CommentApi/GetListCommentByArtworks?artworkId=${artworkId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`         
-            }
+                "Authorization": `Bearer ${token}`,
+            },
         });
+
         if (!response.ok) {
             throw await response.text();
         }
+
         if (response.status === 200) {
             const data = await response.json();
-            const responseData: AsyncResponse<PostetArtwork[]> = {
+            const responseData: AsyncResponse<GetComment[]> = {
                 status: "SUCCESS",
-                data: data
+                data: data,
             };
             return responseData;
         } else {
             const data = await response.text();
-            const responseData: AsyncResponse<PostetArtwork[]> = {
+            const responseData: AsyncResponse<GetComment[]> = {
                 status: "FAIL",
-                error: data
+                error: data,
             };
             return responseData;
         }
     } catch (error) {
-        const responseData: AsyncResponse<PostetArtwork[]> = {
+        const responseData: AsyncResponse<GetComment[]> = {
             status: "FAIL",
-            error: "Error"
+            error: "Error",
         };
         return responseData;
     }

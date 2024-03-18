@@ -3,12 +3,18 @@ import Image from 'next/image'
 import Close from '@/public/close-square-svgrepo-com.svg';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { PostetArtwork } from '@/app/component/lib/Interface';
+import { CreatePostComment, GetComment, PostetArtwork } from '@/app/component/lib/Interface';
 import { GetPostByIdAsync } from '@/app/component/api/GetPostByIdAsync';
+import { CreatePostCommentAsync } from '@/app/component/api/CreatePostCommentAsync';
+import { GetListPostCommentAsync } from '@/app/component/api/GetListPostCommentAsync';
+import { DeleteCommentAsync } from '@/app/component/api/DeleteCommentAsync';
 
 export default function PopupComment({ setShowCommentPopup, postId }: { setShowCommentPopup: (show: boolean) => void, postId: string | undefined }) {
     const [post, setPost] = useState<PostetArtwork>();
     const [token, setToken] = useState<string | null>(null);
+    const [newComment, setNewComment] = useState<string>("");
+    const [listComment, setListComment] = useState<GetComment[]>([]);
+
     useEffect(() => {
         if (postId === undefined) {
             setShowCommentPopup(false);
@@ -22,12 +28,63 @@ export default function PopupComment({ setShowCommentPopup, postId }: { setShowC
                 }
             }
             fetchPost();
+            fetchComment();
             const tokenFromStorage = localStorage.getItem('token');
             if (tokenFromStorage) {
                 setToken(tokenFromStorage);
             }
         }
     }, [postId, setShowCommentPopup]);
+
+    const fetchComment = async () => {
+        if (!post) {
+            return;
+        }
+        const response = await GetListPostCommentAsync(post.postId, localStorage.getItem('token') ?? "");
+        if (response.status === "SUCCESS" && response.data !== undefined) {
+            setListComment(response.data);
+        } else {
+            console.error(response.error ?? "Unknown error");
+        }
+    }
+
+    const handleSubitComment = async (event: React.FormEvent) => {
+        event.preventDefault();
+
+        if (!post) {
+            return;
+        }
+        if (!token) {
+            alert("You must be logged in to comment");
+            return;
+        }
+        const newCommentResDto: CreatePostComment = {
+            postId: post.postId,
+            comment: newComment
+        };
+        const response = await CreatePostCommentAsync(newCommentResDto, token);
+        if (response.status === "SUCCESS") {
+            fetchComment();
+            setNewComment("");
+        } else {
+            alert(response.error ?? "Unknown error");
+        }
+    }
+
+    const handleDeleteComment = async (commentId: string) => {
+        if (!token) {
+            alert("You must be logged in to delete comment");
+            return;
+        }
+        const response = await DeleteCommentAsync(commentId, token);
+        if (response.status === "SUCCESS") {
+            fetchComment();
+            alert("Delete comment successfully");
+        } else {
+            alert(response.error ?? "Unknown error");
+        }
+    }
+
     if (post === undefined) {
         return <div>Loading...</div>
     }
@@ -65,20 +122,34 @@ export default function PopupComment({ setShowCommentPopup, postId }: { setShowC
                         ))}
                     </div>
                     <div className="flex flex-row pb-2 border-b">
-                        {token && <button className="w-full py-2 rounded-md">Thích</button>}
                     </div>
                     <div className='flex flex-col mt-2'>
-                        <div className='flex flex-col space-y-1 border-b pb-2'>
-                            <p className='font-medium text-sm'>Bùi Phạm An Khang</p>
-                            <p className='text-xs font-light'>8:50 Ngày 05/03/2024</p>
-                            <p className="bg-gray-100 p-2 rounded-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                        </div>
+                        {listComment.map((comment) => (
+                            <div key={comment.commentId} className='flex flex-row justify-between items-start border-b pb-2'>
+                                <div className='flex flex-col space-y-1'>
+                                    <p className='font-medium text-sm'>{comment.accountName}</p>
+                                    <p className='text-xs font-light'>{comment.createDateTime}</p>
+                                    <p className="bg-gray-100 p-2 rounded-lg">{comment.content}</p>
+                                </div>
+                                {comment.isCommentByAccount && (
+                                    <button onClick={() => handleDeleteComment(comment.commentId)} className='text-red-500'>Delete</button>
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </div>
-                <form className="sticky bottom-0 bg-white pt-3 pl-3 pr-3">
-                    <input type="text" placeholder="Viết bình luận" className="w-full p-2 rounded-md shadow-lg bg-slate-100" />
-                    <button className="w-full py-2 rounded-md">Gửi</button>
-                </form>
+                {token && (
+                    <form className="sticky bottom-0 bg-white pt-3 pl-3 pr-3" onSubmit={handleSubitComment}>
+                        <input
+                            type="text"
+                            placeholder="Viết bình luận"
+                            className="w-full p-2 rounded-md shadow-lg bg-slate-100"
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
+                        />
+                        <button className="w-full py-2 rounded-md" type='submit'>Gửi</button>
+                    </form>
+                )}
             </div>
         </div>
     )

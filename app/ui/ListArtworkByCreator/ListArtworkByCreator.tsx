@@ -26,13 +26,16 @@ export default function ListArtworkByCreator() {
     }, []);
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid grid-row-1 sm:grid-row-2 md:grid-row-3 lg:grid-row-4 xl:grid-row-5 gap-4 ">
             <ButtonUpdateImageByCreator />
+            <div className="flex flex-row space-x-2">
             {listArtwork?.map((artwork) => (
                 <Link key={artwork.artworkId} className="relative w-64 h-64" href={`/artwork/${artwork.artworkId}`}>
                     <Image src={`data:image/jpeg;base64,${artwork.image}`} alt={artwork.title} layout="fill" objectFit="cover" className="absolute top-0 left-0 w-full h-full" />
                 </Link>
             ))}
+            </div>
+            
         </div>
     );
 }

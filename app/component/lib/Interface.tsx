@@ -18,6 +18,7 @@ export interface PostetArtwork {
     createDateTime: string;
     likeCount: number;
     listArtwork: Artwork[];
+    isLike: boolean;
 }
 
 export interface Artwork {
@@ -284,4 +285,22 @@ export interface ArtworkOwnByCustomer {
     createDateTime: string;
     image: string;    
     price: number;    
+}
+
+export interface CreatePostComment {
+    postId: string;
+    comment: string;
+}
+
+export interface CreateArtworkComment {
+    artworkId: string;
+    comment: string;
+}
+
+export interface GetComment {
+    commentId: string;
+    accountName: string;
+    createDateTime: string;
+    content: string;
+    isCommentByAccount: boolean;
 }
