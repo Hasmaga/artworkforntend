@@ -1,6 +1,6 @@
 'use client';
 import { useRef, useState } from "react";
-import { RegisterCreator, RegisterMember, SignUp as SignUpProps } from "@/app/component/lib/Interface";
+import { RegisterMember } from "@/app/component/lib/Interface";
 import { z } from "zod";
 import { RegisterMemberAsync } from "@/app/component/api/RegisterMemberAsync";
 import { RegisterCreatorAsync } from "@/app/component/api/RegisterCreatorAsync";
@@ -13,10 +13,8 @@ export default function SignUp() {
     const [phoneError, setPhoneError] = useState('');
     const [passwordConfirmError, setPasswordConfirmError] = useState('');
     const [roleError, setRoleError] = useState('');
-    const [isCreator, setIsCreator] = useState(false);
-    const [isCustomer, setIsCustomer] = useState(false);
-
-
+    const [isCreator, setIsCreator] = useState<boolean>(false);
+    const [isCustomer, setIsCustomer] = useState<boolean>(true);
 
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -53,21 +51,6 @@ export default function SignUp() {
         path: ["passwordConfirm"]
     });
 
-    const handleCreatorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setIsCreator(e.target.checked);
-        if (e.target.checked) {
-            setIsCustomer(false);
-        }
-    };
-
-    const handleCustomerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setIsCustomer(e.target.checked);
-        if (e.target.checked) {
-            setIsCreator(false);
-        }
-    };
-
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const email = emailRef.current?.value;
@@ -76,12 +59,9 @@ export default function SignUp() {
         const lastName = lastNameRef.current?.value;
         const phone = phoneRef.current?.value;
         const passwordConfirm = passwordConfirmRef.current?.value;
-
         const result = schema.safeParse({ email, password, firstName, lastName, phone, passwordConfirm });
-
-
-
-        if (result.success) {
+        const isCheckRole = isCreator || isCustomer;
+        if (result.success && isCheckRole) {
             setEmailError('');
             setPasswordError('');
             setFirstNameError('');
@@ -89,10 +69,6 @@ export default function SignUp() {
             setPhoneError('');
             setPasswordConfirmError('');
             setRoleError('');
-            if (!isCreator && !isCustomer) {
-                setRoleError("Vui lòng chọn ít nhất một trong hai tùy chọn: Creator hoặc Customer");
-                return;
-            }
             const user: RegisterMember = {
                 email: result.data.email,
                 password: result.data.password,
@@ -100,54 +76,71 @@ export default function SignUp() {
                 lastName: result.data.lastName,
                 phoneNumber: result.data.phone ?? ""
             };
-
-            const creator: RegisterCreator = {
-                email: result.data.email,
-                password: result.data.password,
-                firstName: result.data.firstName,
-                lastName: result.data.lastName,
-                phoneNumber: result.data.phone ?? ""
-            }
             if (isCreator) {
-                // Tạo tài khoản cho Creator
-                const response = await RegisterCreatorAsync(creator);
+                const response = await RegisterCreatorAsync(user);
                 if (response.status === "SUCCESS") {
-                    alert("Đăng ký thành công");
+                    alert("Đăng ký thành công, xin hãy đợi trong 1, 2 phút để admin xác nhận tài khoản");
+                    window.location.href = "/login";
                 } else {
-                    alert("Đăng ký thất bại");
+                    alert("Đăng ký thất bại, xin vui lòng thử lại");
                 }
             } else if (isCustomer) {
-                // Tạo tài khoản cho Customer
                 const response = await RegisterMemberAsync(user);
                 if (response.status === "SUCCESS") {
                     alert("Đăng ký thành công");
+                    window.location.href = "/login";
                 } else {
-                    alert("Đăng ký thất bại");
+                    alert("Đăng ký thất bại, xin vui lòng thử lại");
                 }
             }
         } else {
-            for (const error of result.error.errors) {
-                if (error.path[0] === 'email') {
-                    setEmailError(error.message);
-                } else if (error.path[0] === 'password') {
-                    setPasswordError(error.message);
-                } else if (error.path[0] === 'firstName') {
-                    setFirstNameError(error.message);
-                } else if (error.path[0] === 'lastName') {
-                    setLastNameError(error.message);
-                } else if (error.path[0] === 'phone') {
-                    setPhoneError(error.message);
-                } else if (error.path[0] === 'passwordConfirm') {
-                    setPasswordConfirmError(error.message);
+            if (!result.success) {
+                for (const error of result.error.errors) {
+                    if (error.path[0] === 'email') {
+                        setEmailError(error.message);
+                    } else if (error.path[0] === 'password') {
+                        setPasswordError(error.message);
+                    } else if (error.path[0] === 'firstName') {
+                        setFirstNameError(error.message);
+                    } else if (error.path[0] === 'lastName') {
+                        setLastNameError(error.message);
+                    } else if (error.path[0] === 'phone') {
+                        setPhoneError(error.message);
+                    } else if (error.path[0] === 'passwordConfirm') {
+                        setPasswordConfirmError(error.message);
+                    }
                 }
-
-
             }
         }
     };
 
+    const handleCreatorChange = () => {
+        setIsCreator(true);
+        setIsCustomer(false);
+    };
+
+    const handleCustomerChange = () => {
+        setIsCreator(false);
+        setIsCustomer(true);
+    };
+
     return (
         <form onSubmit={handleSubmit} className='flex flex-col space-y-1.5'>
+            <div className="flex flex-row w-full space-x-2">                
+                <div
+                    className={`cursor-pointer shadow-xl border rounded-md text-center w-1/2 p-2 ${isCustomer ? 'bg-blue-200' : 'bg-white'}`}
+                    onClick={handleCustomerChange}
+                >
+                    Customer
+                </div>
+                <div
+                    className={`cursor-pointer shadow-xl border rounded-md text-center w-1/2 p-2 ${isCreator ? 'bg-blue-200' : 'bg-white'}`}
+                    onClick={handleCreatorChange}
+                >
+                    Creator
+                </div>
+            </div>
+            {roleError && <p className='text-red-500'>{roleError}</p>}
             <input
                 ref={firstNameRef}
                 type="text"
@@ -180,30 +173,6 @@ export default function SignUp() {
                 className='p-2 border-2 rounded-md hover:border-green-500 focus:border-green-500'
             />
             {phoneError && <p className='text-red-500'>{phoneError}</p>}
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={isCreator}
-                            onChange={handleCreatorChange}
-                        />
-                        Creator
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={isCustomer}
-                            onChange={handleCustomerChange}
-                        />
-                        Customer
-                    </label>
-                </div>
-            </div>
-            {roleError && <p className='text-red-500'>{roleError}</p>}
-
             <input
                 ref={passwordRef}
                 type="password"

@@ -3,7 +3,7 @@ export interface Login {
     password: string;
 }
 
-export interface SignUp {
+export interface SignUpProps {
     email: string;
     password: string;
     firstName: string;
@@ -115,14 +115,6 @@ export interface CreateRequestBooking {
 }
 
 export interface RegisterMember {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    password: string;
-}
-
-export interface RegisterCreator {
     firstName: string;
     lastName: string;
     email: string;

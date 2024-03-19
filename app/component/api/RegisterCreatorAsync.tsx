@@ -1,7 +1,7 @@
-import { RegisterCreator, AsyncResponse } from "../lib/Interface";
+import { RegisterMember, AsyncResponse } from "../lib/Interface";
 import { URL } from "./Url";
 
-export async function RegisterCreatorAsync( user : RegisterCreator){
+export async function RegisterCreatorAsync( user : RegisterMember){
     try {
         const response = await fetch(`https://${URL}/accountapi/registercreator`, {
             method: 'POST',

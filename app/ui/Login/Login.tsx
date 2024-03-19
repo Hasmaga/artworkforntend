@@ -35,9 +35,7 @@ export default function Login() {
             if (reponse.status == "SUCCESS") {
                 const token = reponse.data;
                 localStorage.setItem('token', token);
-
                 const roleResponse = await GetRoleAsync(token);
-
                 if (roleResponse.status !== "SUCCESS") {
                     alert('Server error');
                 }
