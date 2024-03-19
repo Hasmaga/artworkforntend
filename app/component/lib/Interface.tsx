@@ -122,6 +122,14 @@ export interface RegisterMember {
     password: string;
 }
 
+export interface RegisterCreator {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+}
+
 export interface BookingByCreator {
     bookingId: string;
     userName: string;
