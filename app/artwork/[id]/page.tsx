@@ -16,6 +16,8 @@ export default function Page({ params }: { params: { id: string } }) {
     const [error, setError] = useState<string>("");
     const [listComment, setListComment] = useState<GetComment[]>([]);
     const [newComment, setNewComment] = useState<string>();
+    const [isLoadingArtwork, setIsLoadingArtwork] = useState<boolean>(true);
+    const [isLoadingComment, setIsLoadingComment] = useState<boolean>(true);
 
     useEffect(() => {
         fetchArtwork();
@@ -27,10 +29,9 @@ export default function Page({ params }: { params: { id: string } }) {
         if (response.status === "SUCCESS") {
             setArtwork(response.data);
         } else {
-            setError(response.error ?? "Unknown error");
-            alert(error);
-            window.location.href = "/";
+            setError(response.error ?? "Unknown error");            
         }
+        setIsLoadingArtwork(false);        
     };
 
     const handleSubitComment = async (event: React.FormEvent) => {
@@ -66,10 +67,23 @@ export default function Page({ params }: { params: { id: string } }) {
         } else {
             setError(response.error ?? "Unknown error");
         }
+        setIsLoadingComment(false);
     };
 
+    if (isLoadingArtwork || isLoadingComment) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+        );
+    }
+
     if (!artwork) {
-        return <div>Loading...</div>;
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <p>Có j đó sai sai ở đây!!! Xin hãy thử lại sau!!!</p>
+            </div>
+        );
     }
 
     const handleShare = () => {
@@ -151,19 +165,23 @@ export default function Page({ params }: { params: { id: string } }) {
                             <p>Tên bức ảnh: </p>
                             <p className="bg-gray-200 p-2 rounded-lg">{artwork.artworkName}</p>
                         </div>
-                        <div className="flex flex-col space-x-3 overflow-x-auto overflow-y-auto pb-2 border-b">
+                        <div className="flex flex-col pb-2 border-b">
                             <p>Thể loại: </p>
-                            {artwork.artworkTypeList.map((type) => (
-                                <p key={type.id} className="bg-gray-200 p-2 rounded-lg">{type.type}</p>
-                            ))}
+                            <div className="flex flex-row space-x-1">
+                                {artwork.artworkTypeList.map((type) => (
+                                    <p key={type.id} className="bg-gray-200 p-2 rounded-lg">{type.type}</p>
+                                ))}
+                            </div>
                         </div>
-                        <div className="flex flex-row justify-between mb-2 pb-2 border-b">
+                        <div className="flex flex-row justify-between mb-2 pb-2 mt-2 border-b">
                             <p>Thích: {artwork.likeCount}</p>
                         </div>
                         <div className="flex flex-row border-b-2">
-                            <button onClick={handleLike} className={`w-full py-2 rounded-md ${artwork.isLike ? 'text-red-500' : ''}`}>Thích</button>
+                            {localStorage.getItem('token') && (
+                                <button onClick={handleLike} className={`w-full py-2 rounded-md ${artwork.isLike ? 'text-red-500' : ''}`}>Thích</button>
+                            )}
                             <button onClick={handleShare} className="w-full py-2 rounded-md">Chia sẻ</button>
-                            {artwork.isSold ? <p className="w-full py-2 rounded-md bg-red-500 text-white">Đã bán</p> : <button onClick={handlePreOrder} className="w-full py-2 rounded-md">Mua</button>}
+                            {artwork.isSold ? <p className="w-full py-2 rounded-md bg-red-500 text-center text-white">Đã bán</p> : <button onClick={handlePreOrder} className="w-full py-2 rounded-md">Thêm vào giỏ hàng</button>}
                         </div>
                         <div className="flex flex-col pt-3">
                             {listComment.map((comment) => (
