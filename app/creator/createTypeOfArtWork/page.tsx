@@ -53,7 +53,7 @@ export default function CreateTypeOfArtWorkTest() {
 
         try {
             setLoading(true);
-            const response = await fetch('https://6538a5b6a543859d1bb1ae4a.mockapi.io/testPRN', {
+            const response = await fetch(`https://${URL}/typeofartworkapi/SaveTypeOfArtwork`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
