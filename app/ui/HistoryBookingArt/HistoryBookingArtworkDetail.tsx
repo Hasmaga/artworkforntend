@@ -11,7 +11,7 @@ export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: 
     const [booking, setBooking] = useState<BookingByCustomer>();
     const [error, setError] = useState<string>("");
     const router = useRouter();
-    const [popupRequestBooking, setPopupRequestBooking] = useState<boolean>(false);    
+    const [popupRequestBooking, setPopupRequestBooking] = useState<boolean>(false);
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
@@ -27,7 +27,7 @@ export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: 
                     setError(response.error ?? "Unknown error");
                 }
             }
-            fetchListBooking();            
+            fetchListBooking();
         } else {
             alert("You are not login")
             router.push("/login");
@@ -50,7 +50,7 @@ export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: 
                             <div className="font-semibold">Mô tả đặt tranh: <span className="font-normal">{booking.description}</span></div>
                             <div className="font-semibold">Giá: <span className="font-normal">{booking.price}</span></div>
                             <div className="font-semibold">Thời gian đặt tranh: <span className="font-normal">{booking.createDateTime}</span></div>
-                            
+
                             <div className="font-semibold">Tranh:
                                 {booking.image ?
                                     (
@@ -61,10 +61,10 @@ export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: 
                                 }
                             </div>
                         </div>
-                        {booking.requestBooking.map(artwork => (
-                            <div>
+                        {booking.requestBooking.map((artwork, index) => (
+                            <div key={index}>
                                 <p className="text-xl font-semibold">Nội dung yêu cầu thêm</p>
-                                <div key={artwork.createDateTime} className="mt-2">
+                                <div className="mt-2">
                                     <div className="font-semibold">Thời gian tạo: <span className="font-normal">{artwork.createDateTime}</span></div>
                                     <div className="font-semibold">Mô tả thêm: <span className="font-normal">{artwork.description}</span></div>
                                     <div className="font-semibold">Tình trạng: <span className="font-normal">{artwork.statusName}</span></div>

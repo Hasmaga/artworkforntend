@@ -18,6 +18,7 @@ export default function Page() {
                     </div>
                 </div>
                 <Login />
+                <Link href="/forgotPassword" className="text-blue-700">Quên mật khẩu?</Link>
             </div>
             <div className="w-1/2">
                 <img src="https://source.unsplash.com/random" alt="random" className="w-full h-screen object-fill" />

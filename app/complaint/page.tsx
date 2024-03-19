@@ -1,3 +1,4 @@
+'use client';
 import { useState } from "react";
 import Navbar from "../ui/Navbar/Navbar";
 import ArtworkComplaint from "./ArtworkComplaint";

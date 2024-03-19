@@ -1,7 +1,9 @@
+import ProfileAccountPage from "@/app/ui/ProfileAccount/ProfileAccount";
+
 export default function Page() {
     return (
-        <div>
-            <h1>Page</h1>
-        </div>
+        <>
+            <ProfileAccountPage />
+        </>
     );
 }

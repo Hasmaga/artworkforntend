@@ -83,7 +83,7 @@ export default function ButtonUpdateImageByCreator() {
             }
             data.append("artworkName", artwork.artworkName);
             data.append("artworkDescription", artwork.artworkDescription);
-            data.append("typeOfArtwork", artwork.typeOfArtwork.join(","));
+            data.append("typeOfArtwork", artwork.typeOfArtwork.join(",")); // Error here
             data.append("isPublic", artwork.isPublic.toString());
             data.append("artworkPrice", artwork.artworkPrice.toString());
 

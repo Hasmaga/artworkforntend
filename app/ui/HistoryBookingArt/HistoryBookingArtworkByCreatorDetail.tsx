@@ -11,7 +11,7 @@ import ButtonChangeStatusRequestByCreator from "../ButtonChangeStatusRequestByCr
 
 export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bookingId: string }) {
     const [booking, setBooking] = useState<BookingByCreator>();
-    const [error, setError] = useState<string>("");    
+    const [error, setError] = useState<string>("");
     const [tokenl, setTokenl] = useState<string>("");
 
     useEffect(() => {
@@ -35,7 +35,7 @@ export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bo
             alert("You are not login")
             window.location.href = "/login";
         }
-    }, []);    
+    }, []);
 
     return (
         <div>
@@ -56,19 +56,19 @@ export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bo
                             <div className="font-semibold">Tranh:
                                 {booking.image ?
                                     (
-                                        <Image src={`data:image/jpeg;base64,${booking.image}`} alt="" className="w-1/4 h-1/4" width={100} height={100}/>
+                                        <Image src={`data:image/jpeg;base64,${booking.image}`} alt="" className="w-1/4 h-1/4" width={100} height={100} />
                                     ) : (
-                                        <div>                                            
-                                            <FormUploadImageToBookingByCreator bookingId={bookingId}/>
+                                        <div>
+                                            <FormUploadImageToBookingByCreator bookingId={bookingId} />
                                         </div>
                                     )
                                 }
                             </div>
                         </div>
                         {booking.requestBooking.map(artwork => (
-                            <div>
+                            <div key={artwork.requestBookingId}>
                                 <p className="text-xl font-semibold">Nội dung yêu cầu thêm</p>
-                                <div key={artwork.requestBookingId} className="mt-2">
+                                <div className="mt-2">
                                     <div className="font-semibold">Thời gian tạo: <span className="font-normal">{artwork.createDateTime}</span></div>
                                     <div className="font-semibold">Mô tả thêm: <span className="font-normal">{artwork.description}</span></div>
                                     <div className="font-semibold">Tình trạng: <span className="font-normal">{artwork.statusName}</span></div>
@@ -76,10 +76,10 @@ export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bo
                                     <div className="font-semibold">Tranh:
                                         {artwork.image ?
                                             (
-                                                <Image src={`data:image/jpeg;base64,${artwork.image}`} alt="" className="w-1/4 h-1/4" width={100} height={100}/>
+                                                <Image src={`data:image/jpeg;base64,${artwork.image}`} alt="" className="w-1/4 h-1/4" width={100} height={100} />
                                             ) : (
                                                 <div>
-                                                    <FormUploadImageToRequestArtworkByCreator requestArtworkId={artwork.requestBookingId}/>
+                                                    <FormUploadImageToRequestArtworkByCreator requestArtworkId={artwork.requestBookingId} />
                                                 </div>
                                             )
                                         }
