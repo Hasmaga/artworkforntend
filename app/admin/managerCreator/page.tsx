@@ -1,22 +1,21 @@
 'use client'
-import { GetListCreatorByRoleAdminAsync } from "@/app/component/api/GetListCreatorByRoleAdminAsync"; 
+import { GetListCreatorByRoleAdminAsync } from "@/app/component/api/GetListCreatorByRoleAdminAsync";
 import { AccountResponseDto } from "@/app/component/lib/Interface";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CreateAccountDto } from "@/app/component/lib/Interface";
-import { CreateCreatorAccountByAdminAsync } from "@/app/component/api/CreateCreatorAccountByAdminAsync"; 
+import { CreateCreatorAccountByAdminAsync } from "@/app/component/api/CreateCreatorAccountByAdminAsync";
 import { UpdateAccountDto } from "@/app/component/lib/Interface";
-import { UpdateCreatorAccountByAdminAsync } from "@/app/component/api/UpdateCreatorAccountByAdminAsync"; 
+import { UpdateCreatorAccountByAdminAsync } from "@/app/component/api/UpdateCreatorAccountByAdminAsync";
 import ResolvingViewport from 'next/dist/lib/metadata/types/metadata-interface.js';
-import { ChangeStatusCreatorAccountByAdminAsync } from "@/app/component/api/ChangeStatusCreatorAccountByAdminAsync"; 
+import { ChangeStatusCreatorAccountByAdminAsync } from "@/app/component/api/ChangeStatusCreatorAccountByAdminAsync";
 import { ChangeStatusRequestDto } from '../../component/lib/Interface';
 
 
 export default function Page() {
     // Get All Member
-    const [listMemberAccount, setListMemberAccount] = useState<AccountResponseDto[]>([]);
+    const [listMemberAccount, setListMemberAccount] = useState<AccountResponseDto[] | undefined>(undefined);
     const [error, setError] = useState<string>("");
-
     const router = useRouter();
 
     // Create New Member 
@@ -34,6 +33,9 @@ export default function Page() {
     const [updatePhoneNumber, setUpdatePhoneNumber] = useState<string>("");
     const [memberAccountID, setMemberAccountID] = useState<string>("");
 
+    // Search Creator
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [filterCreatorAccount, setFilterCreatorAccount] = useState<AccountResponseDto[]>([]);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -206,14 +208,14 @@ export default function Page() {
         }
     }
 
-    const handleDeleteMemberAccount = async (memberAccountId: string, memberAccountStatus : string) => {
+    const handleDeleteMemberAccount = async (memberAccountId: string, memberAccountStatus: string) => {
         const token = localStorage.getItem("token");
         if (token) {
             try {
                 const statusName = (memberAccountStatus === "ACTIVE") ? "DEACTIVE" : "ACTIVE";
-                const changeStatusRequestDto :  ChangeStatusRequestDto = {
-                    id : memberAccountId,
-                    statusName : statusName
+                const changeStatusRequestDto: ChangeStatusRequestDto = {
+                    id: memberAccountId,
+                    statusName: statusName
                 }
                 const response = await ChangeStatusCreatorAccountByAdminAsync(changeStatusRequestDto, token);
 
@@ -239,6 +241,19 @@ export default function Page() {
         }
     }
 
+    useEffect(() => {
+        if(listMemberAccount){
+            const filterCreator = listMemberAccount.filter(creator => 
+                creator.email.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            setFilterCreatorAccount(filterCreator);
+        }
+    },[searchQuery, listMemberAccount])
+
+    const ClearDataSearch = () => {
+        setSearchQuery("");    
+    }
+
     return (
         <div className="bg-white pt-5 mt-5 pl-5 pr-5 space-y-5 rounded-xl shadow-xl pb-5 mb-5">
             <p className="text-xl font-semibold">List Creator</p>
@@ -251,6 +266,18 @@ export default function Page() {
                     >
                         Create New Creator
                     </button>
+
+                    <input
+                        type="text"
+                        placeholder="Search by email"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="border border-gray-300 rounded px-4 py-2 mt-4 w-full"
+                    />
+                    {searchQuery &&(
+                            <button className="top-0 right-0 mt-2 mr-3 text-gray-500" onClick={ClearDataSearch} style={{marginTop:"-20px"}}>Clear</button>
+                        )
+                    }
                     {showModal && (
                         <div className="fixed inset-0 flex items-center justify-center z-10">
                             <div className="absolute inset-0 bg-gray-800 opacity-50"></div>
@@ -349,19 +376,6 @@ export default function Page() {
                             <div className="absolute inset-0 bg-gray-800 opacity-50"></div>
                             <div className="bg-white p-8 rounded-lg z-20">
                                 <h2 className="text-2xl font-bold mb-4">Update Creator Account </h2>
-                                {/* <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="id">
-                                        ID
-                                    </label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="id"
-                                        type="text"
-                                        placeholder="ID"
-                                        value={memberAccountID}
-                                        readOnly
-                                    />
-                                </div> */}
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
                                         First Name
@@ -430,19 +444,17 @@ export default function Page() {
                                 <th className="border border-gray-300 p-3">Email</th>
                                 <th className="border border-gray-300 p-3">Phone Number</th>
                                 <th className="border border-gray-300 p-3">Status Name</th>
-                                {/* <th className="border border-gray-300 p-3">Role Name</th> */}
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                listMemberAccount.map(memberAccount => (
+                                filterCreatorAccount.map(memberAccount => (
                                     <tr key={memberAccount.id} className="border border-gray-300">
                                         <td className="border border-gray-300 p-3">{memberAccount.firstName}</td>
                                         <td className="border border-gray-300 p-3">{memberAccount.lastName}</td>
                                         <td className="border border-gray-300 p-3">{memberAccount.email}</td>
                                         <td className="border border-gray-300 p-3">{memberAccount.phoneNumber}</td>
                                         <td className="border border-gray-300 p-3">{memberAccount.statusName}</td>
-                                        {/* <td className="border border-gray-300 p-3">{memberAccount.roleName}</td> */}
                                         <td className="border border-gray-300 p-3">
                                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
                                                 onClick={() => handleUpdateCustomerAccount(memberAccount.id)}>

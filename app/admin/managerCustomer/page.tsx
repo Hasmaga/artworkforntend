@@ -12,7 +12,7 @@ import { ChangeStatusMemberAccountByAdminAsync } from "@/app/component/api/Chang
 
 export default function Page() {
     // Get All Member
-    const [listMemberAccount, setListMemberAccount] = useState<AccountResponseDto[]>([]);
+    const [listMemberAccount, setListMemberAccount] = useState<AccountResponseDto[] | undefined>(undefined);
     const [error, setError] = useState<string>("");
 
     const router = useRouter();
@@ -32,6 +32,9 @@ export default function Page() {
     const [updatePhoneNumber, setUpdatePhoneNumber] = useState<string>("");
     const [memberAccountID, setMemberAccountID] = useState<string>("");
 
+    // Search Customer
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [filterCustomerAccount, setFilterCustomerAccount] = useState<AccountResponseDto[]>([]);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -237,6 +240,19 @@ export default function Page() {
         }
     }
 
+    useEffect(() => {
+        if(listMemberAccount){
+            const filterAccount = listMemberAccount.filter(member =>
+                member.email.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            setFilterCustomerAccount(filterAccount);
+        }
+    }, [searchQuery, listMemberAccount])
+
+    const ClearDataSearch = () => {
+        setSearchQuery("");    
+    }
+    
     return (
         <div className="bg-white pt-5 mt-5 pl-5 pr-5 space-y-5 rounded-xl shadow-xl pb-5 mb-5">
             {error ? (
@@ -248,6 +264,17 @@ export default function Page() {
                     >
                         Create New Customer
                     </button>
+                   <input
+                        type="text"
+                        placeholder="Search By Email"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="border border-gray-300 rounded px-4 py-2 mt-4 w-full"
+                   />
+                    {searchQuery &&(
+                            <button className="top-0 right-0 mt-2 mr-3 text-gray-500" onClick={ClearDataSearch} style={{marginTop:"-20px"}}>Clear</button>
+                        )
+                    }
                     {showModal && (
                         <div className="fixed inset-0 flex items-center justify-center z-10">
                             <div className="absolute inset-0 bg-gray-800 opacity-50"></div>
@@ -346,19 +373,6 @@ export default function Page() {
                             <div className="absolute inset-0 bg-gray-800 opacity-50"></div>
                             <div className="bg-white p-8 rounded-lg z-20">
                                 <h2 className="text-2xl font-bold mb-4">Update Customer Account </h2>
-                                {/* <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="id">
-                                        ID
-                                    </label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="id"
-                                        type="text"
-                                        placeholder="ID"
-                                        value={memberAccountID}
-                                        readOnly
-                                    />
-                                </div> */}
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
                                         First Name
@@ -432,7 +446,7 @@ export default function Page() {
                         </thead>
                         <tbody>
                             {
-                                listMemberAccount.map(memberAccount => (
+                                filterCustomerAccount.map(memberAccount => (
                                     <tr key={memberAccount.id} className="border border-gray-300">
                                         <td className="border border-gray-300 p-3">{memberAccount.firstName}</td>
                                         <td className="border border-gray-300 p-3">{memberAccount.lastName}</td>
