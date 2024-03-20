@@ -4,7 +4,24 @@ import LeftNavbarCreator from "../ui/LeftNavbar/LeftNavbarCreator";
 import Navbar from "../ui/Navbar/Navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-    useCheckToken();
+    const [isTokenLoading, isRightRole] = useCheckToken();
+
+    if (isTokenLoading) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+        );
+    }
+
+    if (!isRightRole) {
+        return (
+            <div className="flex items-center justify-center h-screen text-2xl text-red-500">
+                You are not authority to show this page.
+            </div>
+        );
+    }
+
     return (
         <div>
             <Navbar />

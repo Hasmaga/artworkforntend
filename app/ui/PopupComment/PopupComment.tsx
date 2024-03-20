@@ -86,8 +86,15 @@ export default function PopupComment({ setShowCommentPopup, postId }: { setShowC
     }
 
     if (post === undefined) {
-        return <div>Loading...</div>
+        return (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                <div className="bg-white rounded ml-32 mr-32 max-w-3xl min-w-96 overflow-x-auto overflow-y-auto min-h-32 max-h-screen h-[80vh] space-y-3 flex items-center justify-center">
+                    Loading...
+                </div>
+            </div>
+        );
     }
+    
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white rounded ml-32 mr-32 max-w-3xl min-w-96 overflow-x-auto overflow-y-auto min-h-32 max-h-screen h-[80vh] space-y-3">

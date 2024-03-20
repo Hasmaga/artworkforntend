@@ -11,6 +11,7 @@ export default function TableListPreOrderByCustomer() {
     const [error, setError] = useState<string>("");
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState({ title: '', message: '', action: () => { } });
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchListPreOrder = async () => {
         const token = localStorage.getItem("token");
@@ -23,6 +24,7 @@ export default function TableListPreOrderByCustomer() {
                 alert(error);
             }
         }
+        setIsLoading(false);
     }
 
     const handleDelete = (preOrderId: string) => {
@@ -70,8 +72,20 @@ export default function TableListPreOrderByCustomer() {
     }
 
     useEffect(() => {
-        fetchListPreOrder();
+        fetchListPreOrder();        
     }, []);
+
+    if (isLoading) {
+        return (
+            <div>Loading...</div>
+        )
+    }
+    
+    if (listPreOrder.length === 0) {
+        return (
+            <div>Bạn chưa có gì trong giỏ hàng</div>
+        )
+    }
 
     return (
         <div>

@@ -1,13 +1,13 @@
 'use client';
 import { GetListBookingByCustomerAsync } from "@/app/component/api/GetListBookingByCustomerAsync";
 import { BookingByCustomer } from "@/app/component/lib/Interface";
-import { log } from "console";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function HistoryBookingArt() {
     const [listBooking, setListBooking] = useState<BookingByCustomer[]>([]);
     const [error, setError] = useState<string>("");
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -26,7 +26,24 @@ export default function HistoryBookingArt() {
             }
             fetchListBooking();
         }
+        setIsLoading(false);
     }, []);
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center">
+                <p className="text-gray-500">Loading...</p>
+            </div>
+        );
+    }
+
+    if (listBooking.length === 0) {
+        return (
+            <div className="">
+                <p className="text-gray-500">Bạn chưa từng đặt tranh</p>
+            </div>
+        );
+    }
 
     return (
         <div className="container mx-auto px-4">
