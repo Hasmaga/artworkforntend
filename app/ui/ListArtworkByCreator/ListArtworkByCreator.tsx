@@ -13,7 +13,7 @@ export default function ListArtworkByCreator() {
     // Search Artwork
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [filterListArtwork, setFilterListArtwork] = useState<GetArtworkByCreator[]>([]);
-    
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
@@ -30,10 +30,12 @@ export default function ListArtworkByCreator() {
     }, []);
 
     useEffect(() => {
-        if(listArtwork){
-            const filterArtwork = listArtwork.filter(artwork => 
-                artwork.title.toLowerCase().includes(searchQuery.toLowerCase())
-            );
+        if (listArtwork) {
+            const filterArtwork = listArtwork.filter((artwork: GetArtworkByCreator) => {
+                const findByTitle = artwork.title.toLowerCase().includes(searchQuery.toLowerCase()) 
+                const findByTypeOfArtWorkTitle = artwork.typeOfArtworks.some(typeOfArtworks => typeOfArtworks.type.toLowerCase().includes(searchQuery.toLowerCase())) 
+                return findByTitle || findByTypeOfArtWorkTitle;
+            });
             setFilterListArtwork(filterArtwork);
         }
     }, [searchQuery, listArtwork])
@@ -43,7 +45,7 @@ export default function ListArtworkByCreator() {
     }
 
     return (
-        <div className="container mx-auto py-8 px-4">
+        <div className="container mx-auto py-8 px-10">
             <ButtonUpdateImageByCreator />
             <input
                 type="text"
@@ -52,12 +54,13 @@ export default function ListArtworkByCreator() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="border border-gray-300 rounded px-4 py-2 mt-4 w-full"
             />
-            {
-                searchQuery && (
-                    <button className="top-0 right-0 mt-2 mr-3 text-gray-500" onClick={ClearDataSearch} style={{marginTop:"-20px"}}>Clear</button>
+            
+            {searchQuery &&(
+                    <button className="top-0 right-0 mt-2 mr-3 text-gray-500" onClick={ClearDataSearch} style={{marginTop:"5px", marginBottom:"5px"}}>Clear</button>
                 )
             }
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8  mx-auto py-8 px-10">
                 {filterListArtwork?.map((artwork) => (
                     <div key={artwork.artworkId} className="bg-white rounded-lg shadow-md overflow-hidden">
                         <Link href={`/artwork/${artwork.artworkId}`} className="block relative h-64">

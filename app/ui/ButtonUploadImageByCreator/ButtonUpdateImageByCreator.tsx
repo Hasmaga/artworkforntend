@@ -99,6 +99,9 @@ export default function ButtonUpdateImageByCreator() {
                         isPublic: false,
                         artworkPrice: 0,
                     });
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 1000);
                     setImage(null);
                     alert("Artwork uploaded successfully");
                 } else {
