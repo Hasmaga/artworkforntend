@@ -123,7 +123,9 @@ export default function Page() {
                 if (response.status === "SUCCESS") {
                     if (response.data !== undefined) {
                         console.log("Created Member Account by Admin successfully");
-                        window.location.reload();
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 500);
 
                     } else {
                         setError("Data is undefined");
@@ -185,7 +187,9 @@ export default function Page() {
                 if (response.status === "SUCCESS") {
                     if (response.data !== undefined) {
                         console.log("Update Member Account by Admin successfully");
-                        window.location.reload();
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 500);
 
                     } else {
                         setError("Data is undefined");
@@ -221,8 +225,9 @@ export default function Page() {
                 if (response.status === "SUCCESS") {
                     if (response.data !== undefined) {
                         console.log("Delete Member Account successfully");
-                        window.location.reload();
-
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 500);
                     } else {
                         setError("Data is undefined");
                     }
@@ -271,8 +276,8 @@ export default function Page() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="border border-gray-300 rounded px-4 py-2 mt-4 w-full"
                    />
-                    {searchQuery &&(
-                            <button className="top-0 right-0 mt-2 mr-3 text-gray-500" onClick={ClearDataSearch} style={{marginTop:"-20px"}}>Clear</button>
+                      {searchQuery &&(
+                            <button className="top-0 right-0 mt-2 mr-3 text-gray-500" onClick={ClearDataSearch} style={{marginTop:"5px", marginBottom:"5px"}}>Clear</button>
                         )
                     }
                     {showModal && (
