@@ -8,15 +8,24 @@ import { UpdateTypeOfArtworkAsync } from "@/app/component/api/UpdateTypeOfArtwor
 import { ChangeStatusTypeOfArtworkAsync } from "@/app/component/api/ChangeStatusTypeOfArtworkAsync";
 
 export default function Page() {
-    const [listTypeOfArtwork, setListTypeOfArtwork] = useState<TypeOfArtwork[]>([]);
+    // Get List TypeOfArtwork
+    const [listTypeOfArtwork, setListTypeOfArtwork] = useState<TypeOfArtwork[] | undefined>(undefined);
     const [error, setError] = useState<string>("");
     const [showModal, setShowModal] = useState<boolean>(false);
+
+    // Create TypeOfArtwork
     const [newType, setNewType] = useState("");
     const [newDescription, setNewDescription] = useState("");
     const [showEditMode, setShowEditModal] = useState<boolean>(false);
+
+    // Update TypeOfArtwork
     const [updateType, setUpdateType] = useState("");
     const [updateDescription, setUpdateDescription] = useState("");
     const [typeOfArtworkId, SetTypeOfArtworkId] = useState("");
+
+    // Search TypeOfArtwork
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [filterTypeOfArtwork, setFilterTypeOfArtwork] = useState<TypeOfArtwork[]>([]);
     const router = useRouter();
 
     useEffect(() => {
@@ -140,9 +149,9 @@ export default function Page() {
         if (token) {
             try {
                 const statusName = (typeOfArtworkStatusName === "ACTIVE") ? "DEACTIVE" : "ACTIVE";
-                const changeStatusRequestDto : ChangeStatusRequestDto = {
-                    id : typeOfArtworkId,
-                    statusName : statusName
+                const changeStatusRequestDto: ChangeStatusRequestDto = {
+                    id: typeOfArtworkId,
+                    statusName: statusName
                 }
                 const response = await ChangeStatusTypeOfArtworkAsync(changeStatusRequestDto, token);
 
@@ -171,6 +180,18 @@ export default function Page() {
         }
     }
 
+    useEffect(() => {
+        if(listTypeOfArtwork){
+            const filterTypeOfArtwork = listTypeOfArtwork.filter(typeOfArtwork => 
+                typeOfArtwork.type.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            setFilterTypeOfArtwork(filterTypeOfArtwork);
+        }
+    }, [searchQuery, listTypeOfArtwork]);
+
+    const ClearDataSearch = () => {
+        setSearchQuery("");
+    }
 
     return (
         <div className="bg-white pt-5 mt-5 pl-5 pr-5 space-y-5 rounded-xl shadow-xl pb-5 mb-5">
@@ -184,6 +205,17 @@ export default function Page() {
                     >
                         Create New Type Of Artwork
                     </button>
+                    <input
+                        type="text"
+                        placeholder="Search by title"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="border border-gray-300 rounded px-4 py-2 mt-4 w-full"
+                    />
+                    {searchQuery &&(
+                            <button className="top-0 right-0 mt-2 mr-3 text-gray-500" onClick={ClearDataSearch} style={{marginTop:"-20px"}}>Clear</button>
+                        )
+                    }
                     {showModal && (
                         <div className="fixed inset-0 flex items-center justify-center z-10">
                             <div className="absolute inset-0 bg-gray-800 opacity-50"></div>
@@ -239,19 +271,6 @@ export default function Page() {
                             <div className="absolute inset-0 bg-gray-800 opacity-50"></div>
                             <div className="bg-white p-8 rounded-lg z-20">
                                 <h2 className="text-2xl font-bold mb-4">Update Type Of Artwork</h2>
-                                {/* <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="id">
-                                        ID
-                                    </label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="id"
-                                        type="text"
-                                        placeholder="ID"
-                                        value={typeOfArtworkId}
-                                        readOnly
-                                    />
-                                </div> */}
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
                                         Type
@@ -311,7 +330,7 @@ export default function Page() {
                         </thead>
                         <tbody>
                             {
-                                listTypeOfArtwork.map(typeOfArtwork => (
+                                filterTypeOfArtwork.map(typeOfArtwork => (
                                     <tr key={typeOfArtwork.id} className="border border-gray-300">
                                         <td className="border border-gray-300 p-3">{typeOfArtwork.type}</td>
                                         <td className="border border-gray-300 p-3">{typeOfArtwork.typeDescription}</td>
@@ -332,7 +351,7 @@ export default function Page() {
                                                     }
                                                 }}
                                             >
-                                            {typeOfArtwork.statusName === "ACTIVE" ? "DELETE" : "REVERSE"}
+                                                {typeOfArtwork.statusName === "ACTIVE" ? "DELETE" : "REVERSE"}
                                             </button>
                                         </td>
                                     </tr>
