@@ -1,4 +1,4 @@
-import { GetListArtworkByCreatorAsync } from "@/app/component/api/GetListArtworkByCreatorAsync";
+import { GetListArtworkByCreatorAsync } from "@/app/component/api/GetPublicArtwork";
 import { GetArtworkByCreator } from "@/app/component/lib/Interface";
 import { useEffect, useState } from "react";
 import Select from "react-select";
