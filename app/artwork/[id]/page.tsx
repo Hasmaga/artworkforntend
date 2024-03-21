@@ -158,9 +158,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <div className="w-1/4 overflow-auto">
                     <div className="p-3">
                         <div>
-                            <button className="font-semibold text-lg">
-                                {artwork.creatorName}
-                            </button>
+                            <p className="font-semibold text-lg">{artwork.creatorName}</p>
                             <p className="font-light text-sm text-gray-700">{artwork.createDateTime}</p>
                         </div>
                         <div className="border-b-2 pb-2">
