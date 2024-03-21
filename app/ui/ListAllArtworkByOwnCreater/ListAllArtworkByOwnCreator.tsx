@@ -5,10 +5,12 @@ import Image from "next/image";
 import ButtonUpdateImageByCreator from "../ButtonUploadImageByCreator/ButtonUpdateImageByCreator";
 import Link from "next/link";
 
-export default function ListAllArtwork() {
+export default function ListAllArtworkByOwnCreator() {
     const [error, setError] = useState<string>("");
     const [listArtwork, setListArtwork] = useState<GetPublicArtworkResDto[] | undefined>(undefined);
 
+    console.log("list artwork is: " + listArtwork);
+    
     useEffect(() => {
         const fetchListArtwork = async () => {
             const response = await GetPublicArtwork();
@@ -23,6 +25,7 @@ export default function ListAllArtwork() {
 
     return (
         <div className="container mx-auto">
+            <ButtonUpdateImageByCreator />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-auto py-8 px-10">
                 {listArtwork?.map((artwork) => (
                     <div key={artwork.artworkId} className="relative bg-white rounded-lg shadow-md overflow-hidden">
