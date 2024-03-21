@@ -4,11 +4,11 @@ import LeftNavbarCustomer from "../ui/LeftNavbar/LeftNavbarCustomer";
 import Navbar from "../ui/Navbar/Navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-    const isLoading = useCheckToken();
+    // const isLoading = useCheckToken();
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+    // if (isLoading) {
+    //     return <div>Loading...</div>;
+    // }
     return (
         <div>
             <Navbar />

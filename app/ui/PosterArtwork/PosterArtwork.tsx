@@ -103,7 +103,7 @@ export default function PosterArtwork({ onCommentButtonClick }: PosterArtworkPro
                 listPosterArtwork.map((posterArtwork) => (
                     <div key={posterArtwork.postId} className="bg-white rounded-xl shadow-lg p-5">
                         <div className="flex flex-col ">
-                            <p className="font-semibold text-lg">{posterArtwork.creatorName}</p>
+                            <Link className="font-semibold text-lg" href={`artist/${posterArtwork.creatorName}`}>{posterArtwork.creatorName}</Link>
                             <p className="font-light text-sm text-gray-700">{posterArtwork.createDateTime}</p>
                         </div>
                         <div className="border-t mt-2 pt-2">

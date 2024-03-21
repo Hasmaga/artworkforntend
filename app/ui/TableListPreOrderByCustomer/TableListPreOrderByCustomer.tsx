@@ -119,7 +119,7 @@ export default function TableListPreOrderByCustomer() {
                             <td className="px-4 py-2">{preOrder.artworkName}</td>
                             <td className="px-4 py-2">{preOrder.description}</td>
                             <td className="px-4 py-2">{preOrder.creatorName}</td>
-                            <td className="px-4 py-2">{preOrder.stastusName}</td>
+                            <td className="px-4 py-2">{preOrder.statusName}</td>
                             <td className="px-4 py-2">{preOrder.price}</td>
                             <td className="px-4 py-2">{preOrder.createDateTime}</td>
                             <td className="px-4 py-2">

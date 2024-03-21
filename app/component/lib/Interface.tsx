@@ -270,7 +270,7 @@ export interface PreOrderByCustomer {
     description: string;
     image: string;
     creatorName: string;
-    stastusName: string;
+    statusName: string;
     price: number;
     createDateTime: string;
     isSold: boolean;
@@ -303,4 +303,10 @@ export interface GetComment {
     createDateTime: string;
     content: string;
     isCommentByAccount: boolean;
+}
+
+export interface GetArtistByCustomer{
+    artistFristName: string;
+    artistLastName: string;
+    artistEmail: string;
 }

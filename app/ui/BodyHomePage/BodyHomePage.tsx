@@ -14,25 +14,25 @@ export default function BodyHomePage() {
     };
 
 
-    if (isTabPost) {
-        return (
-            <div className="flex flex-col items-center pl-10 pr-10">
-                <PosterArtwork onCommentButtonClick={handleCommentButtonClick} />
-                {postId && showCommentPopup && (
-                    <PopupComment setShowCommentPopup={setShowCommentPopup} postId={postId} />
-                )}
+    return (
+        <div className="flex flex-col items-center pl-10 pr-10">
+            <div className='w-full flex flex-row'>
+                <button className={`px-4 w-1/2 py-2 m-2 rounded text-white ${isTabPost ? 'bg-green-500' : 'bg-blue-500'}`} onClick={() => { setIsTabPost(true); setIsTabArtwork(false); }}>Post</button>
+                <button className={`px-4 w-1/2 py-2 m-2 rounded text-white ${isTabArtwork ? 'bg-green-500' : 'bg-blue-500'}`} onClick={() => { setIsTabPost(false); setIsTabArtwork(true); }}>Artwork</button>
             </div>
-        )
-    }
-
-    if (isTabArtwork) {
-        return (
-            <div className="flex flex-col items-center pl-10 pr-10">
-                <PosterArtwork onCommentButtonClick={handleCommentButtonClick} />
-                {postId && showCommentPopup && (
-                    <PopupComment setShowCommentPopup={setShowCommentPopup} postId={postId} />
-                )}
-            </div>
-        )
-    }
+            {isTabPost && (
+                <>
+                    <PosterArtwork onCommentButtonClick={handleCommentButtonClick} />
+                    {postId && showCommentPopup && (
+                        <PopupComment setShowCommentPopup={setShowCommentPopup} postId={postId} />
+                    )}
+                </>
+            )}
+            {isTabArtwork && (
+                <>
+                    
+                </>
+            )}
+        </div>
+    )
 }
