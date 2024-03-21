@@ -241,6 +241,11 @@ export interface GetArtworkByGuest {
     isLike: boolean;
 }
 
+export interface GetPublicArtworkResDto{
+    artworkId: string;
+    image: string;
+}
+
 export interface PaymentResponse {
     return_code: number;
     return_message: string;
@@ -309,4 +314,15 @@ export interface GetArtistByCustomer{
     artistFristName: string;
     artistLastName: string;
     artistEmail: string;
+}
+
+export interface GetListArtworkByCreatorId{
+    artworkId: string;
+    artworkName: string;
+    artworkDescription: string;
+    creatorName: string;    
+    typeOfArtwork: TypeOfArtwork[];
+    createDateTime: string;
+    likeCount : number,
+    image: string;    
 }
