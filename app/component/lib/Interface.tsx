@@ -19,6 +19,7 @@ export interface PostetArtwork {
     likeCount: number;
     listArtwork: Artwork[];
     isLike: boolean;
+    creatorId: string;
 }
 
 export interface Artwork {
@@ -306,7 +307,7 @@ export interface GetComment {
 }
 
 export interface GetArtistByCustomer{
-    artistFristName: string;
+    artistFirstName: string;
     artistLastName: string;
     artistEmail: string;
 }

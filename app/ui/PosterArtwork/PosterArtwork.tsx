@@ -8,7 +8,6 @@ import { UnlikePostAsync } from "@/app/component/api/UnlikePostAsync";
 import { LikePostAsync } from "@/app/component/api/LikePostAsync";
 import SelectListCreator from "../SelectListCreator/SelectListCreator";
 import { GetListPostByCreaterIdAsync } from "@/app/component/api/GetListPostByCreaterIdAsync";
-import { set } from "zod";
 
 interface PosterArtworkProps {
     onCommentButtonClick: (postId: string) => void;
@@ -103,7 +102,7 @@ export default function PosterArtwork({ onCommentButtonClick }: PosterArtworkPro
                 listPosterArtwork.map((posterArtwork) => (
                     <div key={posterArtwork.postId} className="bg-white rounded-xl shadow-lg p-5">
                         <div className="flex flex-col ">
-                            <Link className="font-semibold text-lg" href={`artist/${posterArtwork.creatorName}`}>{posterArtwork.creatorName}</Link>
+                            <Link className="font-semibold text-lg" href={`artist/${posterArtwork.creatorId}`}>{posterArtwork.creatorName}</Link>
                             <p className="font-light text-sm text-gray-700">{posterArtwork.createDateTime}</p>
                         </div>
                         <div className="border-t mt-2 pt-2">

@@ -3,7 +3,7 @@ import { URL } from "@/app/component/api/Url";
 
 export async function GetListArtworkByCreatorIdAsync(creatorId: string) {
     try {
-        const response = await fetch(`${URL}/artwork/getListArtworkByCreatorId/${creatorId}`, {
+        const response = await fetch(`https://${URL}/artworkapi/GetListArtworkByCreatorIdAsync?creatorId=${creatorId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"                

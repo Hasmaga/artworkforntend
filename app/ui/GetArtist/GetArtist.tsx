@@ -1,8 +1,9 @@
+'use client';
 import { GetArtistByCustomerAsync } from "@/app/component/api/GetArtistByCustomerAsync"
 import { GetArtistByCustomer } from "@/app/component/lib/Interface";
 import { useEffect, useState } from "react";
 
-export default function GetArtist(artistId: string) {
+export default function GetArtist({ artistId }: { artistId: string }) {
     const [artist, setArtist] = useState<GetArtistByCustomer>();
 
     const fetchArtist = async () => {
@@ -19,17 +20,17 @@ export default function GetArtist(artistId: string) {
     }, []);
 
     return (
-        <div>
-            <div>
-                <p>Artist Frist Name</p>
-                <p>{artist?.artistFristName}</p>
+        <div className="flex flex-col items-center">
+            <div className="flex flex-row space-x-2">
+                <p className="text-gray-900">Frist Name:</p>
+                <p>{artist?.artistFirstName}</p>
             </div>
-            <div>
-                <p>Artist Last Name</p>
+            <div className="flex flex-row space-x-2">
+                <p className="text-gray-900">Artist Last Name:</p>
                 <p>{artist?.artistLastName}</p>
             </div>
-            <div>
-                <p>Artist Email</p>
+            <div className="flex flex-row space-x-2">
+                <p className="text-gray-900">Artist Email</p>
                 <p>{artist?.artistEmail}</p>
             </div>
         </div>
