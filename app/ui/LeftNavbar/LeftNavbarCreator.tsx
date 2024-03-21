@@ -104,6 +104,13 @@ export default function LeftNavbarCreator() {
                                             </Link>
                                         </div>
                                     </li>
+                                    <li>
+                                        <div>
+                                            <Link href='/creator/viewAllCreator' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                                <span>Danh sách Creator</span>
+                                            </Link>
+                                        </div>
+                                    </li>
                                 </ul>
                             )}
                         </li>

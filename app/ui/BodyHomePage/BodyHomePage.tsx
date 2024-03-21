@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import PosterArtwork from "../PosterArtwork/PosterArtwork";
 import PopupComment from '../PopupComment/PopupComment';
+import Login from '../Login/Login';
+import ListAllArtwork from '../ListAllArtwork/ListAllArtwork';
 
 export default function BodyHomePage() {
     const [isTabArtwork, setIsTabArtwork] = useState(false);
@@ -29,9 +31,12 @@ export default function BodyHomePage() {
                 </>
             )}
             {isTabArtwork && (
-                <>
-                    
-                </>
+                <div>
+                    <div className="bg-white pt-5 mt-5 pl-5 pr-5 space-y-5 rounded-xl shadow-xl pb-5 mb-5 flex flex-col">
+                    <h1 className="text-xl font-semibold">Danh sách ảnh</h1>
+                    <ListAllArtwork />
+                </div>
+             </div>
             )}
         </div>
     )
