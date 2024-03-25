@@ -5,17 +5,16 @@ import { useState, useEffect } from "react";
 import Image from 'next/image';
 import { GetListArtworkByCreatorIdForAllRoleAsync } from "@/app/component/api/GetListArtworkByCreatorIdForAllRoleAsync";
 import Link from 'next/link';
-export default function ListAllArtworkByCreator({params} : {params : {id: string}})
+export default function ListAllArtworkByCreator({params} : {params : {creatorId: string}})
 {
     const [error, setError] = useState<string>("");
     const [listArtwork, setListArtwork] = useState<GetListArtworkByCreatorId[] | undefined>(undefined);
 
 
-    console.log(params.id);
 
     useEffect(() => {
         const fetchListArtwork = async () => {
-            const response = await GetListArtworkByCreatorIdForAllRoleAsync(params.id);
+            const response = await GetListArtworkByCreatorIdForAllRoleAsync(params.creatorId);
             if (response.status === "SUCCESS") {
                 setListArtwork(response.data);
             } else {

@@ -143,6 +143,10 @@ export default function Page({ params }: { params: { id: string } }) {
         }
     }
 
+    const moveToViewAllArtworkPage = (creatorId : string) => {
+        window.location.href = `/ViewAllArtworkByCreator/${creatorId}`;
+    }
+
     return (
         <div className="bg-gray-100 h-screen flex flex-col">
             <Navbar />
@@ -158,7 +162,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <div className="w-1/4 overflow-auto">
                     <div className="p-3">
                         <div>
-                            <button className="font-semibold text-lg">
+                            <button className="font-semibold text-lg" onClick={() => moveToViewAllArtworkPage(artwork.creatorId)}>
                                 {artwork.creatorName}
                             </button>
                             <p className="font-light text-sm text-gray-700">{artwork.createDateTime}</p>
