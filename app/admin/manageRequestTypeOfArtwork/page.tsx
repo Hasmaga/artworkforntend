@@ -20,7 +20,7 @@ export default function ManageRequestTypeOfArtwork() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('https://6538a5b6a543859d1bb1ae4a.mockapi.io/testPRN');
+            const response = await fetch(`https://${URL}/typeofartworkapi/GetListTypeOfArtworkByRoleAdmin`);
             const data = await response.json();
             setTypes(data);
         } catch (error) {
