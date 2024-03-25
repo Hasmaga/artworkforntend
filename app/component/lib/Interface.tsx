@@ -240,6 +240,7 @@ export interface GetArtworkByGuest {
     createDateTime: string;
     likeCount: number;
     isLike: boolean;
+    creatorId : string;
 }
 
 export interface GetPublicArtworkResDto{
@@ -326,4 +327,5 @@ export interface GetListArtworkByCreatorId{
     createDateTime: string;
     likeCount : number,
     image: string;    
+    price : number;
 }
