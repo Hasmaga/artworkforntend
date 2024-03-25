@@ -243,7 +243,7 @@ export interface GetArtworkByGuest {
     creatorId : string;
 }
 
-export interface GetPublicArtworkResDto{
+export interface GetPublicArtworkResDto {
     artworkId: string;
     image: string;
 }
@@ -287,11 +287,11 @@ export interface ArtworkOwnByCustomer {
     artworkId: string;
     artworkName: string;
     artworkDescription: string;
-    creatorName: string;    
+    creatorName: string;
     typeOfArtwork: TypeOfArtwork[];
     createDateTime: string;
-    image: string;    
-    price: number;    
+    image: string;
+    price: number;
 }
 
 export interface CreatePostComment {
@@ -312,20 +312,46 @@ export interface GetComment {
     isCommentByAccount: boolean;
 }
 
-export interface GetArtistByCustomer{
+export interface GetArtistByCustomer {
     artistFirstName: string;
     artistLastName: string;
     artistEmail: string;
 }
 
-export interface GetListArtworkByCreatorId{
+export interface GetListArtworkByCreatorId {
     artworkId: string;
     artworkName: string;
     artworkDescription: string;
-    creatorName: string;    
+    creatorName: string;
     typeOfArtwork: TypeOfArtwork[];
     createDateTime: string;
     likeCount : number,
     image: string;    
     price : number;
+}
+
+export interface TotalStatisticalDashboard {
+    totalAccounts: string;
+    totalArtworks: string;
+    totalMoney: number;
+
+}
+
+// export interface MonthlyStatistic {
+//     month: number;
+//     money: number;
+// }
+
+// export interface MonthlyStatistics {
+//     [key: string]: MonthlyStatistic;
+// }
+
+export interface RegistrationStats {
+    memberRegisterInMonth: number;
+    moderatorRegisterInMonth: number;
+    creatorRegisterInMonth: number;
+}
+
+export interface MonthlyRegistrationStatistics {
+    [month: string]: RegistrationStats;
 }
