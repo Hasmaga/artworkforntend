@@ -25,7 +25,7 @@ const ModalComponent: React.FC<ModalProps> = ({ selectedType, onHide }) => {
                 status: 'ACCEPT'
             };
 
-            const response = await fetch(`https://6538a5b6a543859d1bb1ae4a.mockapi.io/testPRN/${selectedType?.id}`, {
+            const response = await fetch(`https://${URL}/typeofartworkapi/ActiveTypeOfArtwork/${selectedType?.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ const ModalComponent: React.FC<ModalProps> = ({ selectedType, onHide }) => {
                 ...selectedType,
                 status: 'REJECT'
             };
-            const response = await fetch(`https://6538a5b6a543859d1bb1ae4a.mockapi.io/testPRN/${selectedType?.id}`, {
+            const response = await fetch(`https://${URL}/typeofartworkapi/DeActiveTypeOfArtwork/${selectedType?.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
