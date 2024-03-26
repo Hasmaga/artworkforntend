@@ -1,5 +1,5 @@
 'use client'
-import { GetListCreatorByRoleAdminAsync } from "@/app/component/api/GetListCreatorByRoleAdminAsync";
+import { GetListAccountCreatorByRoleAdminAsync } from "@/app/component/api/GetListAccountCreatorByRoleAdminAsync";
 import { AccountResponseDto } from "@/app/component/lib/Interface";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -41,7 +41,7 @@ export default function Page() {
         const token = localStorage.getItem("token");
         if (token) {
             const fetchListMemberAccount = async () => {
-                const response = await GetListCreatorByRoleAdminAsync(token);
+                const response = await GetListAccountCreatorByRoleAdminAsync(token);
                 if (response.status === "SUCCESS") {
                     if (response.data !== undefined) {
                         setListMemberAccount(response.data);
@@ -85,8 +85,6 @@ export default function Page() {
         const token = localStorage.getItem("token");
         if (token) {
             try {
-                // Check Exception 
-                // The Data is not null and the length is more than 4
                 if (!createFirstName || createFirstName.length < 1 || !createLastName || createLastName.length < 1 || createFirstName.length > 50 || createLastName.length > 50) {
                     alert("First Name and Last Name have to be between 1 -50 characters")
                     return;
@@ -158,8 +156,6 @@ export default function Page() {
         const token = localStorage.getItem("token");
         if (token) {
             try {
-                // Check Exception 
-                // The Data is not null and the length is more than 4
                 if (!updateFirstName || updateFirstName.length < 1 || !updateLastName || updateLastName.length < 1 || updateFirstName.length > 50 || updateLastName.length > 50) {
                     alert("First Name and Last Name have to be between 1 -50 characters")
                     return;
