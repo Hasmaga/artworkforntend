@@ -64,10 +64,8 @@ export default function Page() {
         const token = localStorage.getItem("token");
         if (token) {
             try {
-                // Check Exception 
-                // The Data is not null and the length is more than 4
-                if (!newType || newType.length < 4 || !newDescription || newDescription.length < 4) {
-                    alert('The Type and Description Can not be null and the length is more than 4');
+                if (!newType || newType.length < 1 || !newDescription || newDescription.length < 1) {
+                    alert('The Type and Description Can not be null and the length is more than 1');
                     return;
                 }
                 const formData = new FormData();
@@ -105,10 +103,8 @@ export default function Page() {
         const token = localStorage.getItem("token");
         if (token) {
             try {
-                // Check Exception 
-                // The Data is not null and the length is more than 4
-                if (!updateType || updateType.length < 4 || !updateDescription || updateDescription.length < 4) {
-                    alert('The Type and Description Can not be null and the length is more than 4');
+                if (!updateType || updateType.length < 1 || !updateDescription || updateDescription.length < 1) {
+                    alert('The Type and Description Can not be null and the length is more than 1');
                     return;
                 }
                 const updateTypeOfArtwork: UpdateTypeOfArtwork = {
