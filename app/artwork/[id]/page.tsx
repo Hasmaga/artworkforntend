@@ -10,6 +10,7 @@ import { CreatePreOrderByCustomerAsync } from "@/app/component/api/CreatePreOrde
 import { GetListArtworkCommentAsync } from "@/app/component/api/GetListArtworkCommentAsync";
 import { CreateArtworkCommentAsync } from "@/app/component/api/CreateArtworkCommentAsync";
 import { DeleteCommentAsync } from "@/app/component/api/DeleteCommentAsync";
+import Link from "next/link";
 
 export default function Page({ params }: { params: { id: string } }) {
     const [artwork, setArtwork] = useState<GetArtworkByGuest>();
@@ -143,10 +144,6 @@ export default function Page({ params }: { params: { id: string } }) {
         }
     }
 
-    const moveToViewAllArtworkPage = (creatorId: string) => {
-        window.location.href = `/ViewAllArtworkByCreator/${creatorId}`;
-    }
-
     return (
         <div className="bg-gray-100 h-screen flex flex-col">
             <Navbar />
@@ -162,9 +159,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <div className="w-1/4 overflow-auto">
                     <div className="p-3">
                         <div>
-                            <button className="font-semibold text-lg" onClick={() => moveToViewAllArtworkPage(artwork.creatorId)}>
-                                {artwork.creatorName}
-                            </button>
+                            <Link className="font-semibold text-lg" href={`http://localhost:3000/artist/${artwork.creatorId}`}>{artwork.creatorName}</Link>
                             <p className="font-light text-sm text-gray-700">{artwork.createDateTime}</p>
                         </div>
                         <div className="border-b-2 pb-2">
