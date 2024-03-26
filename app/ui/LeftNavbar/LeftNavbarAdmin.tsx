@@ -114,7 +114,14 @@ export default function LeftNavbarAdmin() {
                                     <li>
                                         <div>
                                             <Link href='/admin/manageAcceptCreateAccountRequest' className='flex items-center hover:bg-green-300 p-2 rounded'>
-                                                <span>Quản lý tạo Account Creator</span>
+                                                <span>Quản lý tạo Creator</span>
+                                            </Link> 
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <Link href='/admin/manageRequestTypeOfArtwork' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                                <span>Quản lý tạo loại Tranh</span>
                                             </Link> 
                                         </div>
                                     </li>
