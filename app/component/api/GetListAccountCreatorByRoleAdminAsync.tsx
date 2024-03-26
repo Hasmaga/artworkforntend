@@ -1,9 +1,9 @@
 import { AccountResponseDto, AsyncResponse } from "../lib/Interface";
 import { URL } from "@/app/component/api/Url";
 
-export async function GetListCreatorByRoleAdminAsync(token : string) {
+export async function GetListAccountCreatorByRoleAdminAsync(token : string) {
     try {
-        const response = await fetch(`https://${URL}/accountapi/GetListCreatorByRoleAdminAsync`, {
+        const response = await fetch(`https://${URL}/accountapi/GetListAccountCreatorByRoleAdminAsync`, {
             method: "GET",
             headers: {                
                 "Content-Type": "application/json",
