@@ -1,15 +1,13 @@
 'use client';
-import { CreateBooking, GetCreator, TypeOfArtwork } from "@/app/component/lib/Interface";
-import SelectListCreator from "../SelectListCreator/SelectListCreator";
-import { useRef, useState } from "react";
+import { CreateBooking, TypeOfArtwork, User } from "@/app/component/lib/Interface";
+import { useEffect, useRef, useState } from "react";
 import SelectListTypeOfArtwork from "../SelectListTypeOfArtwork/SelectListTypeOfArtwork";
 import { CreateBookingAsync } from "@/app/component/api/CreateBookingAsync";
+import { GetInformationUserAsync } from "@/app/component/api/GetInformationUserAsync";
 
-export default function BookingArtwork() {    
-    const [selectedCreator, setSelectedCreator] = useState<GetCreator>();
+export default function BookingArtwork({ creatorId }: { creatorId: string }) {
     const [selectedListTypeOfArtwork, setSelectedListTypeOfArtwork] = useState<TypeOfArtwork[]>();
     const [artworkDescription, setArtworkDescription] = useState<string>("");
-    const [errorSelectCreator, setErrorSelectCreator] = useState<string | undefined>();
     const [price, setPrice] = useState<number>(0);
     const [errorSelectListTypeOfArtwork, setErrorSelectListTypeOfArtwork] = useState<string | undefined>();
     const [showBookingStatus, setShowBookingStatus] = useState(false);
@@ -18,25 +16,44 @@ export default function BookingArtwork() {
     const [bookingStatus, setBookingStatus] = useState<string | null>(null);
     const [errorPrice, setErrorPrice] = useState<string | undefined>();
     const [errorArtworkDescription, setErrorArtworkDescription] = useState<string | undefined>();
+    const [user, setUser] = useState<User>();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            return;
+        }
+        const fetchUser = async () => {
+            const reponse = await GetInformationUserAsync(token);
+            if (reponse.status === "SUCCESS") {
+                setUser(reponse.data);
+            } else {
+                setUser(undefined);
+            }
+        };
+        fetchUser();
+    }, []);
 
     const handlePriceInput = (e: React.FormEvent<HTMLInputElement>) => {
         // Remove all non-digit characters and parse as integer
         const value = parseInt(e.currentTarget.value.replace(/\D/g, ''));
         // Handle NaN case if the input field is cleared
-        setPrice(isNaN(value) ? 0 : value);
+        const price = isNaN(value) ? 0 : value;
+
+        if (user && price > user.balance) {
+            setErrorPrice("The price cannot be greater than your balance");
+        } else {
+            setErrorPrice(undefined);
+        }
+
+        setPrice(price);
     };
     const formattedPrice = new Intl.NumberFormat('vi-VN').format(price);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let errorCreator;
         let errorArtwork;
-        let errorPrice;
         let errorDescription;
-        if (!selectedCreator || !selectedCreator.creatorId) {
-            errorCreator = "Please select creator";
-            setErrorSelectCreator(errorCreator);
-        }
         if (!selectedListTypeOfArtwork || selectedListTypeOfArtwork.length === 0) {
             errorArtwork = "Please select type of artwork";
             setErrorSelectListTypeOfArtwork(errorArtwork);
@@ -46,21 +63,21 @@ export default function BookingArtwork() {
             setErrorArtworkDescription(errorDescription);
         }
         if (!price || price <= 0) {
-            errorPrice = "Please provide a valid price for the artwork";
+            let errorPrice = "Please provide a valid price for the artwork";
             setErrorPrice(errorPrice);
         }
 
-        // If either errorCreator or errorArtwork is truthy, return early
-        if (errorCreator || errorArtwork) return;
+        // If either errorCreator, errorArtwork or errorPrice is truthy, return early
+        if (errorArtwork || errorPrice) return;
 
-        if (!selectedCreator || !selectedListTypeOfArtwork) {
+        if (!selectedListTypeOfArtwork) {
             return;
         }
         setShowConfirm(true);
     }
 
     const handleConfirm = async () => {
-        if (!selectedCreator || !selectedListTypeOfArtwork) {
+        if (!selectedListTypeOfArtwork) {
             setBookingStatus("Please select creator and type of artwork");
             return;
         }
@@ -70,7 +87,7 @@ export default function BookingArtwork() {
             return;
         }
         const booking: CreateBooking = {
-            creatorId: selectedCreator.creatorId,
+            creatorId: creatorId,
             contentBooking: artworkDescription,
             listTypeOfArtwork: selectedListTypeOfArtwork.map(type => type.id),
             price: price
@@ -99,11 +116,12 @@ export default function BookingArtwork() {
         setShowBookingStatus(false);
     }
 
+    if (!creatorId) {
+        return <p>Something went wrong. No creator ID provided.</p>;
+    }
+
     return (
         <form onSubmit={handleSubmit} className="flex flex-col space-y-2">
-            <p>Chọn Creator</p>
-            <SelectListCreator onSelectionChange={setSelectedCreator} />
-            {errorSelectCreator && <div>{errorSelectCreator}</div>}
             <p>Chọn những thể loại tranh bạn muốn</p>
             <SelectListTypeOfArtwork onSelectionChange={setSelectedListTypeOfArtwork} />
             {errorSelectListTypeOfArtwork && <div>{errorSelectListTypeOfArtwork}</div>}

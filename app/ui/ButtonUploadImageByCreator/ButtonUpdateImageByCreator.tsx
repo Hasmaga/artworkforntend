@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UploadArtworkByCreator, TypeOfArtwork } from "@/app/component/lib/Interface";
+import { UploadArtworkByCreator, TypeOfArtwork, UploadImage } from "@/app/component/lib/Interface";
 import SelectListTypeOfArtwork from "../SelectListTypeOfArtwork/SelectListTypeOfArtwork";
 import Image from "next/image";
 import { UploadArtworkByCreatorAsync } from "@/app/component/api/UploadArtworkByCreatorAsync";
@@ -65,7 +65,7 @@ export default function ButtonUpdateImageByCreator() {
             artworkName: artwork.artworkName ? "" : "Artwork name is required.",
             artworkDescription: artwork.artworkDescription ? "" : "Artwork description is required.",
             typeOfArtwork: artwork.typeOfArtwork.length > 0 ? "" : "Type of artwork is required.",
-            artworkPrice: artwork.artworkPrice > 0 ? "" : "Artwork price is required.",
+            artworkPrice: artwork.artworkPrice > 0 ? "" : "Artwork can't not be minus and is required.",
             image: image ? "" : "Image is required."
         };
         setErrors(newErrors);
@@ -83,10 +83,11 @@ export default function ButtonUpdateImageByCreator() {
             }
             data.append("artworkName", artwork.artworkName);
             data.append("artworkDescription", artwork.artworkDescription);
-            data.append("typeOfArtwork", artwork.typeOfArtwork.join(",")); // Error here
             data.append("isPublic", artwork.isPublic.toString());
             data.append("artworkPrice", artwork.artworkPrice.toString());
-
+            artwork.typeOfArtwork.forEach((type) => {
+                data.append("typeOfArtwork", type);
+            });
             const token = localStorage.getItem("token");
             if (token) {
                 const response = await UploadArtworkByCreatorAsync(data, token);

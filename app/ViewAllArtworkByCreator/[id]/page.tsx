@@ -1,18 +1,12 @@
 'use client';
 import { GetListArtworkByCreatorId } from "@/app/component/lib/Interface";
-import { useRouter } from "next/router"
 import { useState, useEffect } from "react";
 import Image from 'next/image';
 import { GetListArtworkByCreatorIdForAllRoleAsync } from "@/app/component/api/GetListArtworkByCreatorIdForAllRoleAsync";
 import Link from 'next/link';
-export default function ViewAllArtworkByCreator({params} : {params : {id: string}})
-{
+export default function ViewAllArtworkByCreator({ params }: { params: { id: string } }) {
     const [error, setError] = useState<string>("");
     const [listArtwork, setListArtwork] = useState<GetListArtworkByCreatorId[] | undefined>(undefined);
-
-
-    console.log(params.id);
-
     useEffect(() => {
         const fetchListArtwork = async () => {
             const response = await GetListArtworkByCreatorIdForAllRoleAsync(params.id);
@@ -27,7 +21,6 @@ export default function ViewAllArtworkByCreator({params} : {params : {id: string
 
     return (
         <div className="container mx-auto">
-       
             <div className="grid grid-cols-6 gap-4 mx-auto py-8 px-10">
                 {listArtwork?.map((artwork) => (
                     <div key={artwork.artworkId} className="bg-white rounded-lg shadow-md overflow-hidden">

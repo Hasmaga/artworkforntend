@@ -99,13 +99,6 @@ export default function LeftNavbarCustomer() {
                                     </li>
                                     <li>
                                         <div>
-                                            <Link href='/customer/bookingArt' className='flex items-center hover:bg-green-300 p-2 rounded'>
-                                                <span>Tạo yêu cầu đặt tranh</span>
-                                            </Link>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
                                             <Link href='/customer/topup' className='flex items-center hover:bg-green-300 p-2 rounded'>
                                                 <span>Nạp tiền</span>
                                             </Link>

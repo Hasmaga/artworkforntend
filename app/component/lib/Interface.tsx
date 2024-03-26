@@ -42,7 +42,7 @@ export interface User {
     lastName: string;
     email: string;
     phoneNumber: string;
-    balance: string;
+    balance: number;
 }
 
 export interface CreateTypeOfArtwork {
@@ -240,7 +240,7 @@ export interface GetArtworkByGuest {
     createDateTime: string;
     likeCount: number;
     isLike: boolean;
-    creatorId : string;
+    creatorId: string;
 }
 
 export interface GetPublicArtworkResDto {
@@ -325,9 +325,9 @@ export interface GetListArtworkByCreatorId {
     creatorName: string;
     typeOfArtwork: TypeOfArtwork[];
     createDateTime: string;
-    likeCount : number,
-    image: string;    
-    price : number;
+    likeCount: number,
+    image: string;
+    price: number;
 }
 
 export interface TotalStatisticalDashboard {
@@ -354,4 +354,12 @@ export interface RegistrationStats {
 
 export interface MonthlyRegistrationStatistics {
     [month: string]: RegistrationStats;
+}
+
+export interface UploadImage {
+    artworkName: string;
+    artworkDescription: string;
+    typeOfArtwork: string[];
+    isPublic: boolean;
+    artworkPrice: number;
 }

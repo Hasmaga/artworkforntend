@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
-import { GetPublicArtworkResDto } from "@/app/component/lib/Interface";import { GetPublicArtwork } from "@/app/component/api/GetPublicArtwork";
+import { GetPublicArtworkResDto } from "@/app/component/lib/Interface";
+import { GetPublicArtwork } from "@/app/component/api/GetPublicArtwork";
 import Image from "next/image";
 import ButtonUpdateImageByCreator from "../ButtonUploadImageByCreator/ButtonUpdateImageByCreator";
 import Link from "next/link";
@@ -10,7 +11,7 @@ export default function ListAllArtworkByOwnCreator() {
     const [listArtwork, setListArtwork] = useState<GetPublicArtworkResDto[] | undefined>(undefined);
 
     console.log("list artwork is: " + listArtwork);
-    
+
     useEffect(() => {
         const fetchListArtwork = async () => {
             const response = await GetPublicArtwork();
@@ -36,5 +37,5 @@ export default function ListAllArtworkByOwnCreator() {
                 ))}
             </div>
         </div>
- );
+    );
 }

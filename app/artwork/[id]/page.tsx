@@ -29,9 +29,9 @@ export default function Page({ params }: { params: { id: string } }) {
         if (response.status === "SUCCESS") {
             setArtwork(response.data);
         } else {
-            setError(response.error ?? "Unknown error");            
+            setError(response.error ?? "Unknown error");
         }
-        setIsLoadingArtwork(false);        
+        setIsLoadingArtwork(false);
     };
 
     const handleSubitComment = async (event: React.FormEvent) => {
@@ -143,7 +143,7 @@ export default function Page({ params }: { params: { id: string } }) {
         }
     }
 
-    const moveToViewAllArtworkPage = (creatorId : string) => {
+    const moveToViewAllArtworkPage = (creatorId: string) => {
         window.location.href = `/ViewAllArtworkByCreator/${creatorId}`;
     }
 
@@ -181,6 +181,7 @@ export default function Page({ params }: { params: { id: string } }) {
                         </div>
                         <div className="flex flex-row justify-between mb-2 pb-2 mt-2 border-b">
                             <p>Thích: {artwork.likeCount}</p>
+                            <p>Giá: {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(artwork.price)} VNĐ</p>
                         </div>
                         <div className="flex flex-row border-b-2">
                             {localStorage.getItem('token') && (

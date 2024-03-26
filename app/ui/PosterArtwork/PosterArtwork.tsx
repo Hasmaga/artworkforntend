@@ -26,7 +26,10 @@ export default function PosterArtwork({ onCommentButtonClick }: PosterArtworkPro
         if (creatorId === '') {
             fetchListPostArtwork();
         } else {
-            fetchListPostArtworkByCreator();
+            if (creatorId !== undefined) {
+                fetchListPostArtworkByCreator();
+            } else
+                return;
         }
     }, [creatorId]);
 
@@ -60,7 +63,7 @@ export default function PosterArtwork({ onCommentButtonClick }: PosterArtworkPro
             if (token) {
                 const response = await UnlikePostAsync(postId, token);
                 if (response.status === 'SUCCESS') {
-                    if (creatorId === '') {
+                    if (creatorId === undefined) {
                         fetchListPostArtwork();
                     } else {
                         fetchListPostArtworkByCreator();
@@ -76,7 +79,7 @@ export default function PosterArtwork({ onCommentButtonClick }: PosterArtworkPro
             if (token) {
                 const response = await LikePostAsync(postId, token);
                 if (response.status === 'SUCCESS') {
-                    if (creatorId === '') {
+                    if (creatorId === undefined) {
                         fetchListPostArtwork();
                     } else {
                         fetchListPostArtworkByCreator();
