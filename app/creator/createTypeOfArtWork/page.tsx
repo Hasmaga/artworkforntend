@@ -5,36 +5,36 @@ import { motion } from 'framer-motion';
 export default function CreateTypeOfArtWorkTest() {
     const [type, setType] = useState('');
     const [typeDescription, setTypeDescription] = useState('');
-    const [typeImageDefault, setTypeImageDefault] = useState<Uint8Array | null>(null);
+    // const [typeImageDefault, setTypeImageDefault] = useState<Uint8Array | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [error, setError] = useState('');
 
-    const handleImagePreview = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) {
-            setImagePreview(null);
-            setTypeImageDefault(null);
-            return;
-        }
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const result = reader.result;
-            if (result instanceof ArrayBuffer) {
-                const array = new Uint8Array(result);
-                setTypeImageDefault(array);
-                setImagePreview(URL.createObjectURL(file));
-            }
-        };
-        reader.readAsArrayBuffer(file);
-    };
+    // const handleImagePreview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const file = e.target.files?.[0];
+    //     if (!file) {
+    //         setImagePreview(null);
+    //         setTypeImageDefault(null);
+    //         return;
+    //     }
+    //     const reader = new FileReader();
+    //     reader.onloadend = () => {
+    //         const result = reader.result;
+    //         if (result instanceof ArrayBuffer) {
+    //             const array = new Uint8Array(result);
+    //             setTypeImageDefault(array);
+    //             setImagePreview(URL.createObjectURL(file));
+    //         }
+    //     };
+    //     reader.readAsArrayBuffer(file);
+    // };
 
     // Click on the submit and check Validate
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (!type.trim() || !typeDescription.trim() || !typeImageDefault) {
+        if (!type.trim() || !typeDescription.trim()/* || !typeImageDefault*/) {
             setError('All fields are required');
             return;
         }
@@ -44,34 +44,35 @@ export default function CreateTypeOfArtWorkTest() {
 
     // Create Type Of Art
     const handleCreate = async () => {
-        const obj = {
-            type: type,
-            typeDescription: typeDescription,
-            typeImageDefault: typeImageDefault
-        }
-        console.log(typeImageDefault + "bebe");
+        const formData = new FormData();
+        formData.append('type', type);
+        formData.append('typeDescription', typeDescription);
 
+        // formData.append('typeImageDefault', typeImageDefault);
+        console.log(type + '  ----  ' + typeDescription);
+        
+        console.log(formData);
+        const token = localStorage.getItem("token");
         try {
             setLoading(true);
-            const response = await fetch(`https://${URL}/typeofartworkapi/SaveTypeOfArtwork`, {
+            const response = await fetch(`https://localhost:7023/typeofartworkapi/SaveTypeOfArtwork`, {
                 method: 'POST',
                 headers: {
-                    "Content-Type": "application/json"
+                    'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(obj),
-                mode: 'cors'
+                body: formData
             });
-
+    
             if (!response.ok) {
                 throw new Error('Failed to create artwork data');
             }
-
+    
             setShowSuccess(true);
             setType('');
             setTypeDescription('');
-            setTypeImageDefault(null);
+            // setTypeImageDefault(null);
             setImagePreview(null);
-
+    
             // Reload the page after successful post
             setTimeout(() => {
                 window.location.reload();
@@ -83,6 +84,7 @@ export default function CreateTypeOfArtWorkTest() {
             setShowConfirmation(false);
         }
     };
+    
 
     // Click on the cancel to cancel the create type of art work
     const handleCancel = () => {
@@ -97,10 +99,10 @@ export default function CreateTypeOfArtWorkTest() {
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-                <h1 className="text-2xl font-semibold mb-4">Create Post</h1>
+                <h1 className="text-2xl font-semibold mb-4">Request Create TypeOfArtwork</h1>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <div className="flex flex-col">
-                        <label htmlFor="name" className="mb-1">Name:</label>
+                        <label htmlFor="name" className="mb-1">TypeName:</label>
                         <input
                             type="text"
                             id="name"
@@ -110,7 +112,7 @@ export default function CreateTypeOfArtWorkTest() {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <label htmlFor="age" className="mb-1">Age:</label>
+                        <label htmlFor="age" className="mb-1">TypeDescription:</label>
                         <input
                             type="text"
                             id="age"
@@ -119,7 +121,7 @@ export default function CreateTypeOfArtWorkTest() {
                             className="border rounded-md px-2 py-1"
                         />
                     </div>
-                    <div className="flex flex-col">
+                    {/* <div className="flex flex-col">
                         <label htmlFor="image" className="mb-1">Image:</label>
                         <input
                             type="file"
@@ -127,7 +129,7 @@ export default function CreateTypeOfArtWorkTest() {
                             onChange={handleImagePreview}
                             className="border rounded-md px-2 py-1"
                         />
-                    </div>
+                    </div> */}
                     {error && <p className="text-red-600">{error}</p>}
                     {imagePreview && (
                         <img src={imagePreview} alt="Preview" className="max-w-full my-4" />
