@@ -111,6 +111,13 @@ export default function LeftNavbarCreator() {
                                             </Link>
                                         </div>
                                     </li>
+                                    <li>
+                                        <div>
+                                            <Link href='/creator/createTypeOfArtWork' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                                <span>Gửi Yêu Cầu Tạo Loại Tranh</span>
+                                            </Link>
+                                        </div>
+                                    </li>
                                 </ul>
                             )}
                         </li>
