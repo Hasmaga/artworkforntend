@@ -75,7 +75,7 @@ export default function LeftNavbarAdmin() {
                                                 <span>Quản lý booking art</span>
                                             </Link>
                                         </div>
-                                    </li>                                    
+                                    </li>
                                     <li>
                                         <div>
                                             <Link href='/admin/managerComplain' className='flex items-center hover:bg-green-300 p-2 rounded'>
@@ -89,7 +89,7 @@ export default function LeftNavbarAdmin() {
                                                 <span>Quản lý creator</span>
                                             </Link>
                                         </div>
-                                    </li>                                    
+                                    </li>
                                     <li>
                                         <div>
                                             <Link href='/admin/managerCustomer' className='flex items-center hover:bg-green-300 p-2 rounded'>
@@ -103,7 +103,7 @@ export default function LeftNavbarAdmin() {
                                                 <span>Quản lý payment</span>
                                             </Link>
                                         </div>
-                                    </li>                                    
+                                    </li>
                                     <li>
                                         <div>
                                             <Link href='/admin/managerTypeOfArtwork' className='flex items-center hover:bg-green-300 p-2 rounded'>
@@ -115,14 +115,21 @@ export default function LeftNavbarAdmin() {
                                         <div>
                                             <Link href='/admin/manageAcceptCreateAccountRequest' className='flex items-center hover:bg-green-300 p-2 rounded'>
                                                 <span>Quản lý tạo Creator</span>
-                                            </Link> 
+                                            </Link>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <Link href='/admin/manageRequestTypeOfArtwork' className='flex items-center hover:bg-green-300 p-2 rounded'>
                                                 <span>Quản lý tạo loại Tranh</span>
-                                            </Link> 
+                                            </Link>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <Link href='/admin/order' className='flex items-center hover:bg-green-300 p-2 rounded'>
+                                                <span>Quản lý tạo đơn Hàng</span>
+                                            </Link>
                                         </div>
                                     </li>
                                 </ul>
