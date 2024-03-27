@@ -22,7 +22,7 @@ export default function Page() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://${URL}/typeofartworkapi/GetListTypeOfArtworkByRoleAdmin`,
+            const response = await fetch(`https://${URL}/typeofartworkapi/GetListPendingTypeOfArtwork`,
                 {
                     method: 'GET',
                     headers: {
@@ -56,8 +56,6 @@ export default function Page() {
             <div className="mb-4" style={{ marginLeft: "50%" }}>
                 <label htmlFor="statusFilter" className="mr-2">Filter by Status:</label>
                 <select id="statusFilter" onChange={handleFilterChange} value={filterStatus || ''}>
-                    <option value="ACTIVE">Active</option>
-                    <option value="DEACTIVE">DEACTIVE</option>
                     <option value="PENDING">Pending</option>
                 </select>
             </div>

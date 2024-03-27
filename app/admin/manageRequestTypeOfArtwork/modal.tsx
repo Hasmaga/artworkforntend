@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { URL } from '@/app/component/api/Url';
 
 interface Type {
     id: number;
@@ -25,7 +26,7 @@ const ModalComponent: React.FC<ModalProps> = ({ selectedType, onHide }) => {
                 status: 'ACCEPT'
             };
 
-            const response = await fetch(`https://${URL}/typeofartworkapi/ActiveTypeOfArtwork/${selectedType?.id}`, {
+            const response = await fetch(`https://${URL}/typeofartworkapi/ActiveTypeOfArtwork?TypeOfArtworkID=${selectedType?.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -52,7 +53,7 @@ const ModalComponent: React.FC<ModalProps> = ({ selectedType, onHide }) => {
                 ...selectedType,
                 status: 'REJECT'
             };
-            const response = await fetch(`https://${URL}/typeofartworkapi/DeActiveTypeOfArtwork/${selectedType?.id}`, {
+            const response = await fetch(`https://${URL}/typeofartworkapi/DeActiveTypeOfArtwork?TypeOfArtworkID=${selectedType?.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
