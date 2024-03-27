@@ -119,7 +119,7 @@ export default function ButtonUpdateImageByCreator() {
 
     return (
         <div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleButtonClick}>Upload Image</button>
+            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl" onClick={handleButtonClick}>Upload Image</button>
             {showPopup && (
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-10">
                     <div className="bg-white p-4 rounded shadow-lg">

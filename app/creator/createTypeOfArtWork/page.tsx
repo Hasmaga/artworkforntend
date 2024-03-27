@@ -134,7 +134,7 @@ export default function CreateTypeOfArtWorkTest() {
                     {imagePreview && (
                         <img src={imagePreview} alt="Preview" className="max-w-full my-4" />
                     )}
-                    <button type="submit" className="bg-blue-500 text-white rounded-md py-2">
+                    <button type="submit" className="bg-red-500 hover:bg-red-700 text-white rounded-xl py-2">
                         {loading ? 'Creating...' : 'Create'}
                     </button>
                 </form>

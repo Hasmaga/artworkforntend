@@ -48,12 +48,13 @@ export default function ListAllArtwork() {
 
     return (
         <div className="container mx-auto">
-            <div className="flex flex-row justify-between">
-                <button onClick={() => setActiveTab('type')} className={`px-4 py-2 ${activeTab === 'type' ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'} rounded-md`}>Search by Type and Artist</button>
-                <button onClick={() => setActiveTab('name')} className={`px-4 py-2 ${activeTab === 'name' ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'} rounded-md`}>Search by Name</button>
-            </div>
+        <div className="flex flex-row justify-between">
+            <button onClick={() => setActiveTab('type')} className={`px-4 py-2 ${activeTab === 'type' ? 'bg-purple-900 text-white' : 'bg-white text-purple-900'} rounded-xl`} style={{ borderRadius: '15px' }}>Search by Type and Artist</button>
+            <button onClick={() => setActiveTab('name')} className={`px-4 py-2 ${activeTab === 'name' ? 'bg-purple-900 text-white' : 'bg-white text-purple-900'} rounded-xl`} style={{ borderRadius: '15px' }}>Search by Name</button>
+        </div>
+
             {activeTab === 'type' ? (
-                <div className="">
+                <div className="space-y-4">
                     <div>
                         <p>Chọn loại tranh bạn muốn</p>
                         <SelectListTypeOfArtwork onSelectionChange={setFilterTypeOfArtwork} />
@@ -62,17 +63,20 @@ export default function ListAllArtwork() {
                         <p>Chọn artist</p>
                         <SelectListCreator onSelectionChange={setFilterCreator} />
                     </div>
-                    <button className="px-4 py-2 bg-blue-500 text-white rounded-md" onClick={handleSearch}>Search</button>
+                    <div className="mt-4">
+                        <button className="px-4 py-2 bg-red-400 text-white xl" onClick={handleSearch}>Search</button>
+                    </div>
                 </div>
             ) : (
-                <div>
+                <div className="space-y-4">
                     <p>Tìm kiếm tranh bằng tên</p>
                     <div className="flex flex-row justify-between">
                         <input type="text" placeholder="Nhập tên tranh" className="px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" onChange={(e) => setArtworkName(e.target.value)} />
-                        <button className="px-4 py-2 bg-blue-500 text-white rounded-md" onClick={handleSearch}>Search</button>
+                        <button className="px-4 py-2 bg-red-400 text-white rounded-xl" onClick={handleSearch}>Search</button>
                     </div>
                 </div>
             )}
+
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-auto py-8 px-10">
                 {listArtwork?.map((artwork) => (

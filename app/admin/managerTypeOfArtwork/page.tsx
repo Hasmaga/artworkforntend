@@ -196,7 +196,7 @@ export default function Page() {
             ) : (
                 <div className="flex flex-col">
                     <button
-                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4 mx-auto"
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl mb-4 mx-auto"
                         onClick={handleCreateNewType}
                     >
                         Create New Type Of Artwork
@@ -244,13 +244,13 @@ export default function Page() {
                                 </div>
                                 <div className="flex justify-end">
                                     <button
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl mr-2"
                                         onClick={handleSave}
                                     >
                                         Save
                                     </button>
                                     <button
-                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl"
                                         onClick={() => {
                                             setShowModal(false);
                                             setNewType("");
@@ -332,14 +332,14 @@ export default function Page() {
                                         <td className="border border-gray-300 p-3">{typeOfArtwork.typeDescription}</td>
                                         <td className="border border-gray-300 p-3">{typeOfArtwork.statusName}</td>
                                         <td className="border border-gray-300 p-3">
-                                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl mr-2"
                                                 onClick={() => handleUpdateType(typeOfArtwork.id)}>
                                                 Edit
                                             </button>
                                         </td>
                                         <td className="border border-gray-300 p-3">
                                             <button
-                                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl"
                                                 onClick={() => {
                                                     const confirmed = window.confirm("Are you sure you want to Change Status Type Of Artwork?");
                                                     if (confirmed) {
