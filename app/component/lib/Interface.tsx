@@ -355,7 +355,26 @@ export interface RegistrationStats {
 export interface MonthlyRegistrationStatistics {
     [month: string]: RegistrationStats;
 }
-
+export interface OrderListDto {
+    orderId: string;
+    payment: string;
+    userName: string;
+    userEmail: string;
+    accountId: string;
+    listNameArtwork: listNameArtwork[];
+    artworks: artworks[];
+}
+export interface listNameArtwork {
+    "listNameArtwork": string
+}
+export interface artworks {
+    "artworkId": string,
+    "artworkName": string,
+    "description": string,
+    "statusName": string,
+    "image": string,
+    "price": number,
+}
 export interface UploadImage {
     artworkName: string;
     artworkDescription: string;
