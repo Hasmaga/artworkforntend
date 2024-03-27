@@ -4,7 +4,7 @@ interface Type {
     id: number;
     accountid: number;
     typeDescription: string;
-    status: string;
+    statusName: string;
 }
 
 interface ModalProps {
@@ -28,7 +28,8 @@ const ModalComponent: React.FC<ModalProps> = ({ selectedType, onHide }) => {
             const response = await fetch(`https://${URL}/typeofartworkapi/ActiveTypeOfArtwork/${selectedType?.id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token') || ''
                 },
                 body: JSON.stringify(updatedType)
             });
@@ -54,7 +55,8 @@ const ModalComponent: React.FC<ModalProps> = ({ selectedType, onHide }) => {
             const response = await fetch(`https://${URL}/typeofartworkapi/DeActiveTypeOfArtwork/${selectedType?.id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token') || ''
                 },
                 body: JSON.stringify(updatedType)
             });
@@ -91,7 +93,7 @@ const ModalComponent: React.FC<ModalProps> = ({ selectedType, onHide }) => {
                             <p>Type ID: {selectedType.id}</p>
                             <p>Account ID: {selectedType.accountid}</p>
                             <p>Type Description: {selectedType.typeDescription}</p>
-                            <p>Status: {selectedType.status}</p>
+                            <p>Status: {selectedType.statusName}</p>
                             <div className="flex justify-between mt-4">
                                 <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded" onClick={handleAccept}>Accept</button>
                                 <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" onClick={handleReject}>Reject</button>

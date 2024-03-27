@@ -364,9 +364,11 @@ export interface OrderListDto {
     listNameArtwork: listNameArtwork[];
     artworks: artworks[];
 }
+
 export interface listNameArtwork {
     "listNameArtwork": string
 }
+
 export interface artworks {
     "artworkId": string,
     "artworkName": string,
@@ -375,10 +377,17 @@ export interface artworks {
     "image": string,
     "price": number,
 }
+
 export interface UploadImage {
     artworkName: string;
     artworkDescription: string;
     typeOfArtwork: string[];
     isPublic: boolean;
     artworkPrice: number;
+}
+
+export interface UpdateStatusRequestBooking {
+    bookingId?: string;
+    requestBookingId?: string;
+    isAccept: boolean;
 }

@@ -1,18 +1,16 @@
-import { AsyncResponse, ChangeStatusRequestDto } from "../lib/Interface";
+import { UpdateStatusRequestBooking, AsyncResponse } from "../lib/Interface";
 import { URL } from "./Url";
-import { ChangeStatusRequestByCreatorAsync } from '@/app/component/api/ChangeStatusRequestByCreatorAsync';
 
-export async function ChangeStatusMemberAccountByAdminAsync(changeStatusRequestDto: ChangeStatusRequestDto, token: string) {
+export async function ChangeStatusRequestBookingByCustomerAsync(reqDto: UpdateStatusRequestBooking, token: string) {
     try {
-        const response = await fetch(`https://${URL}/accountapi/ChangeAccountStatusByRoleAdminAsync`, {
-            method: "PUT",
+        const response = await fetch(`https://${URL}/BookingApi/ChangeStatusRequestBookingArtworkByCustomer`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
+                "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(changeStatusRequestDto)
+            body: JSON.stringify(reqDto)
         });
-
         if (!response.ok) {
             throw await response.text();
         }
@@ -40,4 +38,3 @@ export async function ChangeStatusMemberAccountByAdminAsync(changeStatusRequestD
         return responseData;
     }
 }
-

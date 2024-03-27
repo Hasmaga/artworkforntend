@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import CreateRequestBookingAsync from "../CreateRequestBooking/CreateRequestBooking";
-import ButtonChangeStatusBookingByCreator from "../ButtonChangeStatusBookingByCreator/ButtonChangeStatusBookingByCreator";
+import { ChangeStatusRequestBookingByCustomerAsync } from "@/app/component/api/ChangeStatusRequestBookingArtworkByCustomerAsync";
 
 export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: string }) {
     const [booking, setBooking] = useState<BookingByCustomer>();
@@ -34,6 +34,45 @@ export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: 
         }
     }, []);
 
+    const handleChangeStatus = async (isAceppt: boolean, requestBookingId?: string) => {
+        if (requestBookingId) {
+            const token = localStorage.getItem("token");
+            if (token) {
+                const response = await ChangeStatusRequestBookingByCustomerAsync({
+                    requestBookingId: requestBookingId,
+                    isAccept: isAceppt
+                }, token);
+                if (response.status === "SUCCESS") {
+                    alert("Change status success");
+                    router.refresh();
+                } else {
+                    alert(response.error ?? "Unknown error");
+                }
+            } else {
+                alert("You are not login")
+                router.push("/login");
+            }
+        } else if (booking) {
+            const token = localStorage.getItem("token");
+            if (token) {
+                const response = await ChangeStatusRequestBookingByCustomerAsync({
+                    bookingId: bookingId,
+                    isAccept: isAceppt
+                }, token);
+                if (response.status === "SUCCESS") {
+                    alert("Change status success");
+                    router.refresh();
+                } else {
+                    alert(response.error ?? "Unknown error");
+                }
+            } else {
+                alert("You are not login")
+                router.push("/login");
+            }
+        }
+
+    }
+
 
     return (
         <div className="">
@@ -60,6 +99,12 @@ export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: 
                                     )
                                 }
                             </div>
+                            {booking.statusName !== "DONE" && booking.statusName !== "CANCEL" && booking.image && (
+                                <div>
+                                    <button className="bg-green-500 text-white rounded-md p-2 mt-5" onClick={() => handleChangeStatus(true)}>DONE</button>
+                                    <button className="bg-red-500 text-white rounded-md p-2 mt-5 ml-2" onClick={() => handleChangeStatus(false)}>CANCEL</button>
+                                </div>
+                            )}
                         </div>
                         {booking.requestBooking.map((artwork, index) => (
                             <div key={index}>
@@ -77,6 +122,12 @@ export default function HistoryBookingArtworkDetail({ bookingId }: { bookingId: 
                                             )
                                         }
                                     </div>
+                                    {artwork.statusName !== "DONE" && artwork.statusName !== "CANCEL" && artwork.image && (
+                                        <div>
+                                            <button className="bg-green-500 text-white rounded-md p-2 mt-5" onClick={() => handleChangeStatus(true, artwork.requestBookingId)}>DONE</button>
+                                            <button className="bg-red-500 text-white rounded-md p-2 mt-5 ml-2" onClick={() => handleChangeStatus(false, artwork.requestBookingId)}>CANCEL</button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         ))}
