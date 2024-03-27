@@ -263,7 +263,7 @@ export default function Page() {
                 <div className="text-red-500">Error: {error}</div>
             ) : (
                 <div className="flex flex-col">
-                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4 mx-auto"
+                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl mb-4 mx-auto"
                         onClick={handleCreateMemberAccount}
                     >
                         Create New Creator
@@ -458,13 +458,13 @@ export default function Page() {
                                         <td className="border border-gray-300 p-3">{memberAccount.phoneNumber}</td>
                                         <td className="border border-gray-300 p-3">{memberAccount.statusName}</td>
                                         <td className="border border-gray-300 p-3">
-                                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl mr-2"
                                                 onClick={() => handleUpdateCustomerAccount(memberAccount.id)}>
                                                 Edit
                                             </button>
                                         </td>
                                         <td className="border border-gray-300 p-3">
-                                            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl"
                                                 onClick={() => {
                                                     const confirmed = window.confirm("Are you sure you want to Change Status Creator Account?");
                                                     if (confirmed) {

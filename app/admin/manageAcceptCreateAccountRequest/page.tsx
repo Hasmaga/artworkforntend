@@ -162,7 +162,7 @@ export default function Page() {
                                         <td className="border border-gray-300 p-3">{memberAccount.phoneNumber}</td>
                                         <td className="border border-gray-300 p-3">{memberAccount.statusName}</td>
                                         <td className="border border-gray-300 p-3">
-                                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl mr-2"
                                                 onClick={() => {
                                                     const confirmed = window.confirm("Are you sure you want to Accept Creator Account?");
                                                     if (confirmed) {
@@ -173,7 +173,7 @@ export default function Page() {
                                             </button>
                                         </td>
                                         <td className="border border-gray-300 p-3">
-                                            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl"
                                                 onClick={() => {
                                                     const confirmed = window.confirm("Are you sure you want to Reject Creator Account?");
                                                     if (confirmed) {
