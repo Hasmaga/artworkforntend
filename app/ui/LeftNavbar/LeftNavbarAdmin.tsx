@@ -78,13 +78,6 @@ export default function LeftNavbarAdmin() {
                                     </li>
                                     <li>
                                         <div>
-                                            <Link href='/admin/managerComplain' className='flex items-center hover:bg-green-300 p-2 rounded'>
-                                                <span>Quản lý complaint</span>
-                                            </Link>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
                                             <Link href='/admin/managerCreator' className='flex items-center hover:bg-green-300 p-2 rounded'>
                                                 <span>Quản lý creator</span>
                                             </Link>
@@ -94,13 +87,6 @@ export default function LeftNavbarAdmin() {
                                         <div>
                                             <Link href='/admin/managerCustomer' className='flex items-center hover:bg-green-300 p-2 rounded'>
                                                 <span>Quản lý customer</span>
-                                            </Link>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <Link href='/admin/managerPayment' className='flex items-center hover:bg-green-300 p-2 rounded'>
-                                                <span>Quản lý payment</span>
                                             </Link>
                                         </div>
                                     </li>

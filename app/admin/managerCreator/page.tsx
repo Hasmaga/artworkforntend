@@ -72,11 +72,6 @@ export default function Page() {
         return numberRegex.test(phoneNumber);
     }
 
-    function isValidLetter(name: string) {
-        const letterRegex = /^[a-zA-Z]+$/;
-        return letterRegex.test(name);
-    }
-
     const handleCreateMemberAccount = () => {
         setShowModal(true);
     }
@@ -87,10 +82,6 @@ export default function Page() {
             try {
                 if (!createFirstName || createFirstName.length < 1 || !createLastName || createLastName.length < 1 || createFirstName.length > 50 || createLastName.length > 50) {
                     alert("First Name and Last Name have to be between 1 -50 characters")
-                    return;
-                }
-                if (!isValidLetter(createFirstName) || !isValidLetter(createLastName)) {
-                    alert("First Name and Last Name only contain letter from a-z or A-Z")
                     return;
                 }
                 if (!createEmail || !isValidEmail(createEmail)) {
@@ -160,10 +151,6 @@ export default function Page() {
                     alert("First Name and Last Name have to be between 1 -50 characters")
                     return;
                 }
-                if (!isValidLetter(updateFirstName) || !isValidLetter(updateLastName)) {
-                    alert("First Name and Last Name only contain letter from a-z or A-Z")
-                    return;
-                }
                 if (!updatePhoneNumber || updatePhoneNumber.length < 10 || updatePhoneNumber.length > 11) {
                     alert("Phone Number have to be between 10 - 11 number")
                     return;
@@ -222,7 +209,7 @@ export default function Page() {
                 if (response.status === "SUCCESS") {
                     if (response.data !== undefined) {
                         console.log("Delete Member Account successfully");
-                         setTimeout(() => {
+                        setTimeout(() => {
                             window.location.reload()
                         }, 500);
 
@@ -244,16 +231,16 @@ export default function Page() {
     }
 
     useEffect(() => {
-        if(listMemberAccount){
-            const filterCreator = listMemberAccount.filter(creator => 
+        if (listMemberAccount) {
+            const filterCreator = listMemberAccount.filter(creator =>
                 creator.email.toLowerCase().includes(searchQuery.toLowerCase())
             );
             setFilterCreatorAccount(filterCreator);
         }
-    },[searchQuery, listMemberAccount])
+    }, [searchQuery, listMemberAccount])
 
     const ClearDataSearch = () => {
-        setSearchQuery("");    
+        setSearchQuery("");
     }
 
     return (
@@ -263,12 +250,6 @@ export default function Page() {
                 <div className="text-red-500">Error: {error}</div>
             ) : (
                 <div className="flex flex-col">
-                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl mb-4 mx-auto"
-                        onClick={handleCreateMemberAccount}
-                    >
-                        Create New Creator
-                    </button>
-
                     <input
                         type="text"
                         placeholder="Search by email"
@@ -276,102 +257,10 @@ export default function Page() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="border border-gray-300 rounded px-4 py-2 mt-4 w-full"
                     />
-                    {searchQuery &&(
-                            <button className="top-0 right-0 mt-2 mr-3 text-gray-500" onClick={ClearDataSearch} style={{marginTop:"5px", marginBottom:"5px"}}>Clear</button>
-                        )
+                    {searchQuery && (
+                        <button className="top-0 right-0 mt-2 mr-3 text-gray-500" onClick={ClearDataSearch} style={{ marginTop: "5px", marginBottom: "5px" }}>Clear</button>
+                    )
                     }
-                    {showModal && (
-                        <div className="fixed inset-0 flex items-center justify-center z-10">
-                            <div className="absolute inset-0 bg-gray-800 opacity-50"></div>
-                            <div className="bg-white p-8 rounded-lg z-20">
-                                <h2 className="text-2xl font-bold mb-4">Create New Creator</h2>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
-                                        First Name
-                                    </label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="type"
-                                        type="text"
-                                        placeholder="Type"
-                                        value={createFirstName}
-                                        onChange={(e) => setCreateFirstName(e.target.value)}
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
-                                        Last Name
-                                    </label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="type"
-                                        type="text"
-                                        placeholder="Type"
-                                        value={createLastName}
-                                        onChange={(e) => setCreateLastName(e.target.value)}
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
-                                        Email
-                                    </label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="type"
-                                        type="text"
-                                        placeholder="Type"
-                                        value={createEmail}
-                                        onChange={(e) => setCreateEmail(e.target.value)}
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
-                                        Phone Number
-                                    </label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="type"
-                                        type="text"
-                                        placeholder="Type"
-                                        value={createPhoneNumber}
-                                        onChange={(e) => setCreatePhoneNumber(e.target.value)}
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
-                                        Password
-                                    </label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="type"
-                                        type="text"
-                                        placeholder="Type"
-                                        value={createPassword}
-                                        onChange={(e) => setCreatePassword(e.target.value)}
-                                    />
-                                </div>
-                                <div className="flex justify-end">
-                                    <button
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-                                        onClick={handleSave}>
-                                        Save
-                                    </button>
-                                    <button
-                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                        onClick={() => {
-                                            setShowModal(false);
-                                            setCreateFirstName("");
-                                            setCreateLastName("");
-                                            setCreateEmail("");
-                                            setCreatePhoneNumber("");
-                                            setCreatePassword("");
-                                        }}>
-                                        Cancel
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
 
                     {showEditModal && (
                         <div className="fixed inset-0 flex items-center justify-center z-10">

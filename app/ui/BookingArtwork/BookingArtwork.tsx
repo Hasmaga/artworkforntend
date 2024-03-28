@@ -54,6 +54,7 @@ export default function BookingArtwork({ creatorId }: { creatorId: string }) {
         e.preventDefault();
         let errorArtwork;
         let errorDescription;
+        let errorPrice1;
         if (!selectedListTypeOfArtwork || selectedListTypeOfArtwork.length === 0) {
             errorArtwork = "Please select type of artwork";
             setErrorSelectListTypeOfArtwork(errorArtwork);
@@ -64,11 +65,12 @@ export default function BookingArtwork({ creatorId }: { creatorId: string }) {
         }
         if (!price || price <= 0) {
             let errorPrice = "Please provide a valid price for the artwork";
+            errorPrice1 = "Please provide a valid price for the artwork";
             setErrorPrice(errorPrice);
         }
 
         // If either errorCreator, errorArtwork or errorPrice is truthy, return early
-        if (errorArtwork || errorPrice) return;
+        if (errorArtwork || errorPrice || errorPrice1) return;
 
         if (!selectedListTypeOfArtwork) {
             return;

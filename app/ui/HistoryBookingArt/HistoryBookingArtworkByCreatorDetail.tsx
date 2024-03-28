@@ -52,14 +52,14 @@ export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bo
                             <div className="font-semibold">Mô tả đặt tranh: <span className="font-normal">{booking.description}</span></div>
                             <div className="font-semibold">Giá: <span className="font-normal">{booking.price}</span></div>
                             <div className="font-semibold">Thời gian đặt tranh: <span className="font-normal">{booking.createDateTime}</span></div>
-                            <ButtonChangeStatusBookingByCreator bookingId={bookingId} token={tokenl} />
+                            <ButtonChangeStatusBookingByCreator bookingId={bookingId} token={tokenl} statusArtwork={booking.statusName} isImage={!booking.image} />
                             <div className="font-semibold">Tranh:
                                 {booking.image ?
                                     (
                                         <Image src={`data:image/jpeg;base64,${booking.image}`} alt="" className="w-1/4 h-1/4" width={100} height={100} />
                                     ) : (
                                         <div>
-                                            <FormUploadImageToBookingByCreator bookingId={bookingId} />
+                                            <FormUploadImageToBookingByCreator bookingId={bookingId} isAccept={booking.statusName === "ACCEPTED"} />
                                         </div>
                                     )
                                 }
@@ -73,13 +73,14 @@ export default function HistoryBookingArtworkByCreatorDetail({ bookingId }: { bo
                                     <div className="font-semibold">Mô tả thêm: <span className="font-normal">{artwork.description}</span></div>
                                     <div className="font-semibold">Tình trạng: <span className="font-normal">{artwork.statusName}</span></div>
                                     <ButtonChangeStatusRequestByCreator requestBookingId={artwork.requestBookingId} token={tokenl} />
+
                                     <div className="font-semibold">Tranh:
                                         {artwork.image ?
                                             (
                                                 <Image src={`data:image/jpeg;base64,${artwork.image}`} alt="" className="w-1/4 h-1/4" width={100} height={100} />
                                             ) : (
                                                 <div>
-                                                    <FormUploadImageToRequestArtworkByCreator requestArtworkId={artwork.requestBookingId} />
+                                                    <FormUploadImageToRequestArtworkByCreator requestArtworkId={artwork.requestBookingId} isAccept={booking.statusName === "AC"} />
                                                 </div>
                                             )
                                         }

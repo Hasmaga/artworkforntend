@@ -4,9 +4,10 @@ import { UploadImageToBookingByCreatorAsync } from "@/app/component/api/UploadIm
 
 interface ImageUploadFormProps {
     bookingId: string;
+    isAccept?: boolean;
 }
 
-export const FormUploadImageToBookingByCreator: React.FC<ImageUploadFormProps> = ({ bookingId }) => {
+export const FormUploadImageToBookingByCreator: React.FC<ImageUploadFormProps> = ({ bookingId, isAccept = false }) => {
     const [image, setImage] = useState<string | null>(null);
     const [name, setName] = useState<string | null>(null);
     const [description, setDescription] = useState<string | null>(null);
@@ -88,34 +89,40 @@ export const FormUploadImageToBookingByCreator: React.FC<ImageUploadFormProps> =
     };
 
     return (
-        <form className="mt-2 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleFormSubmit}>
-            <p className="font-semibold text-xl mb-4">Upload tranh</p>
+        <div>
+            {
+                isAccept && (
+                    <form className="mt-2 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleFormSubmit}>
+                        <p className="font-semibold text-xl mb-4">Upload tranh</p>
 
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Tên bức tranh</label>
-                <input type="text" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={e => setName(e.target.value)} />
-                {errorNameImage && <p className="text-red-500 text-xs italic">{errorNameImage}</p>}
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Mô tả bức tranh</label>
-                <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-20" onChange={e => setDescription(e.target.value)} />
-                {errorDescriptionImage && <p className="text-red-500 text-xs italic">{errorDescriptionImage}</p>}
-            </div>
-            <div className="mb-4">
-                <label className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded inline-block">
-                    Upload Image
-                    <input type="file" className="hidden" onChange={handleImageUpload} />
-                </label>
-                {errorImage && <p className="text-red-500 text-xs italic">{errorImage}</p>}
-            </div>
-            {image && (
-                <div className="mt-4 border-2 border-blue-500 rounded overflow-hidden mb-4">
-                    <Image src={image} alt="Uploaded" width={200} height={200} objectFit="cover" />
-                </div>
-            )}
-            <button className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                Submit
-            </button>
-        </form>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">Tên bức tranh</label>
+                            <input type="text" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={e => setName(e.target.value)} />
+                            {errorNameImage && <p className="text-red-500 text-xs italic">{errorNameImage}</p>}
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">Mô tả bức tranh</label>
+                            <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-20" onChange={e => setDescription(e.target.value)} />
+                            {errorDescriptionImage && <p className="text-red-500 text-xs italic">{errorDescriptionImage}</p>}
+                        </div>
+                        <div className="mb-4">
+                            <label className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded inline-block">
+                                Upload Image
+                                <input type="file" className="hidden" onChange={handleImageUpload} />
+                            </label>
+                            {errorImage && <p className="text-red-500 text-xs italic">{errorImage}</p>}
+                        </div>
+                        {image && (
+                            <div className="mt-4 border-2 border-blue-500 rounded overflow-hidden mb-4">
+                                <Image src={image} alt="Uploaded" width={200} height={200} objectFit="cover" />
+                            </div>
+                        )}
+                        <button className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            Submit
+                        </button>
+                    </form>
+                )
+            }
+        </div>
     );
 };
